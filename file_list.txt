@@ -1,0 +1,10 @@
+bin
+node_modules
+src
+trainee_stuff
+babel.config.json
+file_list.txt
+GEMINI.md
+package-lock.json
+package.json
+README.md

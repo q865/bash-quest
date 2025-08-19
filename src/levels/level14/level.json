@@ -1,28 +1,22 @@
 {
-  "title": "Сканирование портов: nmap",
-  "hint": "nmap scanme.nmap.org | grep 'ssh' > trainee_stuff/nmap_result.txt",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/nmap_result.txt",
-        "content": "22/tcp"
-      }
-    },
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/nmap_result.txt",
-        "content": "ssh"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/nmap_result.txt"
-      }
-    }
-  ]
+    "title": "Команда `rm`",
+    "task": "### Дедовский Ликбез\n\nСоздавать файлы ты научился. Пора научиться их уничтожать. `rm` (remove) — это, блядь, твой ластик. Или, скорее, шредер.\n\n`rm my_useless_file.txt`\n\nЭта команда **безвозвратно удалит** файл. Он не попадёт ни в какую корзину. Он просто исчезнет нахуй. Так что думай башкой, прежде чем что-то удалять.\n\nЧтобы удалить папку, просто `rm` не сработает. Он скажет, что это директория. Чтобы удалить папку со всем её говном внутри, нужен ключ `-r` (recursive):\n\n`rm -r my_useless_folder`\n\nА если система ещё и выёбывается и просит подтверждения, добавь ключ `-f` (force):\n\n`rm -rf my_useless_folder`\n\n`rm -rf` — это одна из самых опасных команд. Она сносит всё на своём пути без единого вопроса. Один неверный пробел, и ты можешь снести всю систему. Используй с величайшей осторожностью.\n\n### Твоя Задача\n\nЯ создал для тебя файл `file_to_delete.txt`. Он мне больше не нужен.\n\n**Удали файл `file_to_delete.txt`**.",
+    "hint": "`rm file_to_delete.txt`",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "file_to_delete.txt",
+                "content": "Этот файл не жилец"
+            }
+        }
+    ],
+    "validation": [
+        {
+            "validator": "file_not_exists",
+            "args": {
+                "path": "file_to_delete.txt"
+            }
+        }
+    ]
 }

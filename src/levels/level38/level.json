@@ -1,11 +1,35 @@
 {
-    "title": "Парсинг сайтов с `axios`",
-    "hint": "Установи `axios` через `npm install axios`, а потом используй его для GET-запросов.",
+    "title": "ES Modules",
+    "task": "### Дедовский Ликбез\n\n`require('module')` — это старый синтаксис, CommonJS. Современный JavaScript использует ES Modules (`import`/`export`). Node.js их тоже, блядь, давно поддерживает.\n\nЧтобы их включить, добавь в `package.json` строку: `\"type\": \"module\"`.\n\nТеперь код выглядит так:\n\n**`utils.js`:**\n```javascript\nexport function sayHello(name) {\n  return `Hello, ${name}`\n}\n```\n\n**`main.js`:**\n```javascript\nimport { sayHello } from './utils.js';\n\nconsole.log(sayHello('Ded'));\n```\n\nЭто чище, статически анализируется и вообще заебись. Привыкай к этому синтаксису.\n\n### Твоя Задача\n\n1.  **Создай файл `math.js`**, в котором будет одна экспортируемая функция `add(a, b)`, возвращающая их сумму.\n2.  **Создай файл `calculator.js`**, который импортирует функцию `add` из `math.js` и выводит в консоль результат `add(5, 3)`.\n3.  **Не забудь про `package.json`!**",
+    "hint": "В `package.json` добавь `\"type\": \"module\"`. В `math.js` используй `export`. В `calculator.js` используй `import`.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "math.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "calculator.js"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_contains",
             "args": {
-                "path": "axios_output.txt"
+                "path": "package.json",
+                "content": "\"type\": \"module\""
+            }
+        },
+        {
+            "validator": "script_produces_output",
+            "args": {
+                "path": "calculator.js",
+                "output": "8",
+                "command": "node calculator.js"
             }
         }
     ]

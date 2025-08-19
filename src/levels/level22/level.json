@@ -1,18 +1,19 @@
 {
-    "title": "Работа с API",
-    "hint": "Используй `curl` и `jq` для получения и фильтрации данных из публичного API.",
+    "title": "Команда `dig`",
+    "task": "### Дедовский Ликбез\n\nКогда ты вводишь в браузере `google.com`, твой комп на самом деле не знает, где этот гугл находится. Он идёт к специальному серверу (DNS) и спрашивает: \"Слышь, какой IP-адрес у `google.com`?\". DNS ему отвечает, и только потом комп соединяется с сервером.\n\n`dig` (Domain Information Groper) — это инструмент, чтобы напрямую задавать вопросы DNS-серверам. Он может показать IP-адрес сайта (A-запись), почтовые серверы (MX-запись), и ещё дохуя всего.\n\n`dig google.com`\n\nВ секции `ANSWER SECTION` ты увидишь IP-адрес. `dig` — это как заглянуть в адресную книгу интернета.\n\n### Твоя Задача\n\nУзнай IP-адрес `github.com`.\n\n**Сохрани результат работы `dig` в файл `github_dig.txt`**.",
+    "hint": "`dig github.com > github_dig.txt`",
     "validation": [
         {
             "validator": "file_exists",
             "args": {
-                "path": "api_data.json"
+                "path": "github_dig.txt"
             }
         },
         {
             "validator": "file_contains",
             "args": {
-                "path": "api_data.json",
-                "content": "userId"
+                "path": "github_dig.txt",
+                "content": "ANSWER SECTION"
             }
         }
     ]

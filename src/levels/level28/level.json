@@ -1,18 +1,22 @@
 {
-    "title": "Цикл `for`",
-    "hint": "Цикл `for` позволяет перебрать элементы и выполнить для каждого из них команду.",
-    "validation": [
+    "title": "Чтение пользовательского ввода",
+    "task": "### Дедовский Ликбез\n\nИногда скрипту нужно спросить что-то у пользователя прямо во время выполнения. Для этого есть команда `read`. Она останавливает выполнение, ждёт, пока пользователь что-то введёт и нажмёт Enter, и сохраняет ввод в переменную.\n\n**Синтаксис:**\n```bash\necho \"Как тебя зовут?\"\nread user_name\necho \"Привет, $user_name!\"```\n\nМожно сделать красивее с ключём `-p` (prompt), который выводит приглашение к вводу:\n\n`read -p \"Введи своё имя: \" user_name`\n\n### Твоя Задача\n\n**Напиши интерактивный скрипт `asker.sh`, который:**\n1.  Спрашивает у пользователя \"What is your favorite command?\".\n2.  Читает его ответ.\n3.  Выводит \"[ответ]? Good choice!\".\n\nНапример, если пользователь введёт `rm -rf /`, скрипт должен ответить `rm -rf /? Good choice!`.",
+    "hint": "Используй `read -p \"...\" var_name`, а затем `echo \"$var_name? Good choice!\"`.",
+    "cleanup": [
         {
-            "validator": "file_exists",
+            "action": "delete_file",
             "args": {
-                "path": "loop.sh"
+                "path": "asker.sh"
             }
-        },
+        }
+    ],
+    "validation": [
         {
             "validator": "script_produces_output",
             "args": {
-                "script": "./loop.sh",
-                "output": "3"
+                "path": "asker.sh",
+                "output": "grep? Good choice!",
+                "input": "grep"
             }
         }
     ]

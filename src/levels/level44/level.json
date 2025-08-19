@@ -1,11 +1,21 @@
 {
-    "title": "Свой веб-сервер: Express",
-    "hint": "`express` — это минималистичный фреймворк для создания веб-серверов на Node.js.",
+    "title": "Команда `scp`",
+    "task": "### Дедовский Ликбез\n\nРаз уж ты умеешь подключаться к удалённому серверу по `ssh`, надо научиться и файлы туда-сюда кидать. Для этого есть `scp` (Secure Copy). Он работает почти как `cp`, но умеет, сука, копировать по сети.\n\n**Синтаксис:**\n\n**С локальной машины на удалённую:**\n`scp /path/to/local/file.txt user@hostname:/path/to/remote/destination/`\n\n**С удалённой на локальную:**\n`scp user@hostname:/path/to/remote/file.txt /path/to/local/destination/`\n\nВсё просто, блядь. `источник` `назначение`. Только если файл удалённый, указываешь `user@host:`.\n\n### Твоя Задача\n\nИ снова теория.\n\n**Создай файл `scp_command.txt` и напиши в нём команду, которая копирует локальный файл `~/backup.tar.gz` на сервер `myserver.com` в домашнюю директорию пользователя `admin`**.",
+    "hint": "Домашняя директория на сервере обычно обозначается как `~/`.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "scp_command.txt"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_contains",
             "args": {
-                "path": "server.js"
+                "path": "scp_command.txt",
+                "content": "scp ~/backup.tar.gz admin@myserver.com:~/"
             }
         }
     ]

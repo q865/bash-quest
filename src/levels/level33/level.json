@@ -1,12 +1,22 @@
 {
-    "title": "Функции в Bash",
-    "hint": "Функции позволяют группировать команды и вызывать их по имени.",
+    "title": "Node.js: `axios`",
+    "task": "### Дедовский Ликбез\n\n`curl` в Bash — это хорошо. Но когда тебе нужно не просто скачать страницу, а сделать сложный запрос, обработать заголовки, JSON\u0027ы, вот это всё — нужен инструмент посерьёзнее. В мире Node.js стандарт де-факто для HTTP-запросов — это библиотека `axios`.\n\nЭто, блядь, не встроенный модуль. Его нужно сначала установить:\n`npm install axios`\n\nА потом использовать:\n```javascript\nconst axios = require('axios');\n\nasync function getData() {\n  try {\n    const response = await axios.get('https://api.example.com/data');\n    console.log(response.data);\n  } catch (error) {\n    console.error('Пиздец, ошибка:', error);\n  }\n}\n\ngetData();\n```\n\n`async/await` — это современный способ работать с асинхронными операциями (вроде сетевых запросов), чтобы не ебаться с коллбэками.\n\n### Твоя Задача\n\n**Напиши Node.js-скрипт `get_btc_price.js`, который использует `axios`, чтобы получить текущую цену Биткоина в USD и вывести её в консоль.**\n\nAPI: `https://api.coindesk.com/v1/bpi/currentprice/USD.json`\n\nТебе нужно извлечь и вывести только значение по пути `bpi.USD.rate`.",
+    "hint": "После `axios.get(...)` получи `response.data.bpi.USD.rate` и выведи его.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "get_btc_price.js"
+            }
+        }
+    ],
     "validation": [
         {
             "validator": "script_produces_output",
             "args": {
-                "script": "./my_func.sh",
-                "output": "Hello from function"
+                "path": "get_btc_price.js",
+                "output": ",",
+                "command": "node get_btc_price.js"
             }
         }
     ]

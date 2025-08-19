@@ -1,12 +1,33 @@
 {
-    "title": "Замена текста: sed",
-    "hint": "Команда `sed 's/старое/новое/g' file` заменяет текст в файле.",
+    "title": "Node.js: Модуль `fs`",
+    "task": "### Дедовский Ликбез\n\nРаботать с файлами в Node.js пиздец как просто. Для этого есть встроенный модуль `fs` (File System).\n\nЧтобы его использовать, его нужно сначала подключить:\n`const fs = require('fs');`\n\nТеперь у тебя есть доступ к куче полезных функций:\n*   `fs.readFileSync('file.txt', 'utf8')` — прочитать файл **синхронно** (программа будет ждать, пока файл не прочитается).\n*   `fs.writeFileSync('file.txt', 'Hello, Ded!')` — записать в файл. Если файла нет — создаст. Если есть — перезапишет.\n*   `fs.appendFileSync('file.txt', 'Another line.')` — дописать в конец файла.\n\n`Sync` в конце значит, что операция блокирующая. Для простых скриптов это нормально. Для серверов — смерть.\n\n### Твоя Задача\n\n**Напиши Node.js-скрипт `writer.js`, который создаёт файл `node_was_here.txt` и записывает в него строку \"I am the file creator!\".**.",
+    "hint": "Подключи `fs`, потом используй `fs.writeFileSync('имя_файла', 'текст');`.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "writer.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "node_was_here.txt"
+            }
+        }
+    ],
     "validation": [
+        {
+            "validator": "command_succeeds",
+            "args": {
+                "command": "node writer.js"
+            }
+        },
         {
             "validator": "file_contains",
             "args": {
-                "path": "new_file.txt",
-                "content": "world"
+                "path": "node_was_here.txt",
+                "content": "I am the file creator!"
             }
         }
     ]

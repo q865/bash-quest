@@ -1,35 +1,13 @@
 {
-  "title": "Копирование: cp",
-  "hint": "cp trainee_stuff/not_a_secret.txt trainee_stuff/backup_secret.txt",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/not_a_secret.txt",
-        "content": "some secret content"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_exists",
-      "args": {
-        "path": "trainee_stuff/backup_secret.txt"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/not_a_secret.txt"
-      }
-    },
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/backup_secret.txt"
-      }
-    }
-  ]
+    "title": "Команда `touch`",
+    "task": "### Дедовский Ликбез\n\nЧтобы что-то написать, нужен, блядь, листок бумаги. В терминале эту роль выполняет команда `touch`. Она создаёт пустые файлы.\n\n`touch my_notes.txt`\n\nИ вот у тебя есть файл `my_notes.txt`. Пока что пустой, как твоя голова, но уже что-то.\n\nЕсли файл с таким именем уже существует, `touch` не сделает нихуя, кроме того, что обновит время его последнего изменения. Это тоже бывает полезно, но об этом позже.\n\n### Твоя Задача\n\nСейчас ты в папке `trainee_stuff`. Создай в ней файл для своих заметок.\n\n**Назови его `my_notes.txt`**.",
+    "hint": "Находясь в `trainee_stuff`, выполни `touch my_notes.txt`.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "trainee_stuff/my_notes.txt"
+            }
+        }
+    ]
 }

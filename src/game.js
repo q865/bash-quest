@@ -5,7 +5,8 @@ import { fileURLToPath, pathToFileURL } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const STATE_FILE = path.resolve(process.cwd(), '.bash_quest_state.json');
+const PROJECT_ROOT = path.resolve(__dirname, '..');
+const STATE_FILE = path.join(PROJECT_ROOT, '.bash_quest_state.json');
 const LEVELS_FILE = path.resolve(__dirname, 'levels.json');
 const VALIDATORS_DIR = path.resolve(__dirname, 'validators');
 const ACTIONS_DIR = path.resolve(__dirname, 'actions');
@@ -85,7 +86,7 @@ class Game {
         for (const action of actionList) {
             const actionHandler = this.actions[action.action];
             if (actionHandler) {
-                await actionHandler(action.args, process.cwd());
+                await actionHandler(action.args, PROJECT_ROOT);
             } else {
                 console.error(`Unknown action type: ${action.action}`);
             }
@@ -94,17 +95,22 @@ class Game {
 
     async getTask() {
         await this.runActions('setup');
-        const level = this.getCurrentLevel();
-        if (!level) {
-            return { isComplete: true };
+        const levelData = this.loadLevelData(this.state.currentLevel);
+
+        if (!levelData) {
+            // This case might happen if all levels are complete.
+            const level = this.getCurrentLevel();
+            if (!level) {
+                return { isComplete: true };
+            }
+            // Fallback if level.json is missing but level exists in manifest
+            return { name: level.title, task: 'Не удалось загрузить данные уровня.', isComplete: false };
         }
-        const taskPath = path.resolve(__dirname, '..', level.path, 'task.md');
-        if (!fs.existsSync(taskPath)) {
-            return { name: level.title, task: 'Текст задания для этого уровня еще не написан Дедом.', isComplete: false };
-        }
-        const taskText = fs.readFileSync(taskPath, 'utf-8');
+
+        const taskText = levelData.task || 'Текст задания для этого уровня еще не написан Дедом.';
+        
         return {
-            name: level.title,
+            name: levelData.title,
             task: taskText,
             isComplete: false,
         };
@@ -129,7 +135,7 @@ class Game {
                 return { success: false, message: `Неизвестный тип проверки: ${validation.validator}` };
             }
             
-            const M_PATH = validation.args.path ? path.join(process.cwd(), validation.args.path) : null;
+            const M_PATH = validation.args.path ? path.join(PROJECT_ROOT, validation.args.path) : null;
             const result = await validator(validation.args, M_PATH, this.state, this.actions);
 
             if (!result.success) {

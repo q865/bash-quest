@@ -1,36 +1,20 @@
 {
-  "title": "Поиск с `grep`",
-  "hint": "grep 'SECRET_KEY' trainee_stuff/ded_logs.txt > trainee_stuff/found_key.txt",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/ded_logs.txt",
-        "content": "INFO: User logged in\nWARN: Disk space is low\nDEBUG: Request received\nINFO: SECRET_KEY=BlyaKakoySecretniyKlyuch\nERROR: Connection failed"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/found_key.txt",
-        "content": "SECRET_KEY=BlyaKakoySecretniyKlyuch"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/ded_logs.txt"
-      }
-    },
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/found_key.txt"
-      }
-    }
-  ]
+    "title": "Перенаправление вывода (`>`)",
+    "task": "### Дедовский Ликбез\n\nТы уже использовал эту хуйню в первом задании, но пора объяснить, как она работает. Знак `>` — это **перенаправление вывода**. Он берёт всё, что команда обычно печатает на экран, и вместо этого засовывает в файл.\n\n`ls > file_list.txt`\n\nЧто здесь произошло? `ls` отработала, но в консоли ты нихуя не увидел. Потому что `>` перехватила весь выхлоп и записала его в `file_list.txt`.\n\n**Важно, блядь:** Если файл `file_list.txt` уже существовал, `>` его **полностью перезапишет**. Весь старый контент пойдёт по пизде. Будь осторожен.\n\n### Твоя Задача\n\nВ файле `cat_fact.txt` лежит охуенно важная инфа. Создай её резервную копию.\n\n**Скопируй содержимое `cat_fact.txt` в новый файл `cat_fact_backup.txt` с помощью `cat` и перенаправления `>`**.",
+    "hint": "Одна команда: `cat source_file > destination_file`.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "cat_fact_backup.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "cat_fact_backup.txt",
+                "content": "Кошки"
+            }
+        }
+    ]
 }

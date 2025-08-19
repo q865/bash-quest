@@ -1,29 +1,14 @@
 {
-  "title": "Перемещение: mv",
-  "hint": "Команда `mv trainee_stuff/secret_word.txt trainee_stuff/not_a_secret.txt` сделает то, что нужно.",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/secret_word.txt",
-        "content": "хуй"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_exists",
-      "args": {
-        "path": "trainee_stuff/not_a_secret.txt"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/not_a_secret.txt"
-      }
-    }
-  ]
+    "title": "Команда `cd`",
+    "task": "### Дедовский Ликбез\n\nХватит топтаться на месте. Команда `cd` (change directory) — это твои ноги. С её помощью ты перемещаешься по файловой системе.\n\n*   `cd trainee_stuff` — войти в папку `trainee_stuff`.\n*   `cd ..` — выйти на один уровень вверх.\n*   `cd` (без всего) — вернуться в свою домашнюю директорию из любого говна, где бы ты ни был.\n*   `cd -` — вернуться в предыдущую директорию, где ты был до этого. Пиздец как удобно, когда скачешь туда-сюда.\n\n### Твоя Задача\n\nТы создал папку `trainee_stuff` на прошлом задании. Самое время в неё зайти.\n\n**Перейди в директорию `trainee_stuff`**. Я проверю, что ты находишься именно там.",
+    "hint": "Просто напиши `cd trainee_stuff`.",
+    "validation": [
+        {
+            "validator": "command_succeeds",
+            "args": {
+                "command": "pwd | grep 'trainee_stuff$'"
+            },
+            "message": "Ты не в той директории, боец. Я же сказал, зайди в `trainee_stuff`."
+        }
+    ]
 }

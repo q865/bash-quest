@@ -1,18 +1,53 @@
 {
-    "title": "Первый Bash-скрипт",
-    "hint": "Создай файл с расширением .sh, не забудь сделать его исполняемым (`chmod +x`).",
+    "title": "Условия (`if`)",
+    "task": "### Дедовский Ликбез\n\nСкрипты — это не просто, блядь, список команд. Они могут принимать решения. Для этого есть конструкция `if`. Если условие истинно, выполняем блок команд. Если нет — пропускаем (или выполняем другой блок).\n\n**Синтаксис:**\n```bash\nif [ -f \"some_file.txt\" ]\nthen\n    echo \"Файл существует.\"\nelse\n    echo \"Файл не найден.\"\nfi\n```\n\n*   `if [...]` — начало условия.\n*   `then` — что делать, если истинно.\n*   `else` — что делать, если ложно (необязательно).\n*   `fi` — конец `if` (fucking important!).\n\n`-f` — это одна из проверок: \"существует ли файл\". Есть и другие: `-d` (директория), `-z` (пустая ли строка), `==` (равны ли строки) и дохуя других.\n\n### Твоя Задача\n\n**Напиши скрипт `checker.sh`, который проверяет, существует ли файл `secret.txt`.**\n\n*   Если файл существует, скрипт должен вывести \"Found it!\".\n*   Если файла нет, он должен вывести \"Nothing here.\".\n\nЯ сам буду создавать и удалять `secret.txt`, чтобы проверить оба случая.",
+    "hint": "Используй `if [ -f \"secret.txt\" ]; then ... else ... fi`.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "checker.sh"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "script_produces_output",
             "args": {
-                "path": "hello.sh"
+                "path": "checker.sh",
+                "output": "Found it!",
+                "setup": [
+                    {
+                        "action": "create_file",
+                        "args": {
+                            "path": "secret.txt",
+                            "content": "secret"
+                        }
+                    }
+                ],
+                "cleanup": [
+                    {
+                        "action": "delete_file",
+                        "args": {
+                            "path": "secret.txt"
+                        }
+                    }
+                ]
             }
         },
         {
             "validator": "script_produces_output",
             "args": {
-                "script": "./hello.sh",
-                "output": "Hello, World!"
+                "path": "checker.sh",
+                "output": "Nothing here.",
+                "setup": [
+                    {
+                        "action": "delete_file",
+                        "args": {
+                            "path": "secret.txt"
+                        }
+                    }
+                ]
             }
         }
     ]

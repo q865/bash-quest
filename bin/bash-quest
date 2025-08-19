@@ -26,7 +26,7 @@ const game = new Game();
 
 const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 
-async function showTask() {
+async function showTask({ instant = false } = {}) {
     const task = await game.getTask();
     if (task.isComplete) {
         await typeWriter(chalk.bold.magenta('Упс, кажется, все уровни пройдены! Поздравляем!'));
@@ -37,7 +37,11 @@ async function showTask() {
 
     console.log(chalk.yellow.bold(`--- ${task.name} ---
 `));
-    await typeWriter(chalk.cyan(task.task));
+    if (instant) {
+        console.log(chalk.cyan(task.task));
+    } else {
+        await typeWriter(chalk.cyan(task.task));
+    }
 }
 
 async function handleBranch(branch) {
@@ -102,7 +106,6 @@ function showHelp() {
     const description = 'Это интерактивный курс для изучения командной строки Bash.';
     const howToPlay = chalk.bold('Как играть:');
     
-    // Safely construct strings to avoid syntax errors
     const step1 = '1. Выберите ' + chalk.green('"Показать текущее задание"') + ' из меню, чтобы получить задачу от Деда.';
     const step2 = '2. Выполните задание, вводя команды прямо в вашем терминале.';
     const step3 = '3. Выберите ' + chalk.green('"Проверить решение"') + ', чтобы Дед оценил вашу работу.';
@@ -126,7 +129,7 @@ function showHelp() {
     console.log(boxen(helpText, { padding: 1, borderStyle: 'double', borderColor: 'green' }));
 }
 
-async function mainMenu() {
+async function mainMenu(taskShownOnce = false) {
   try {
     displayProgress(game.levelManifest, game.state.completedLevels);
 
@@ -135,19 +138,27 @@ async function mainMenu() {
       return 'task';
     }
 
-    const { action } = await inquirer.prompt({
-      type: 'list',
-      name: 'action',
-      message: chalk.yellow('Что будем делать, боец?'),
-      choices: [
-        { name: 'Показать текущее задание', value: 'task' },
+    const choices = [];
+    if (taskShownOnce) {
+        choices.push({ name: 'Показать задание еще раз', value: 'task_again' });
+    } else {
+        choices.push({ name: 'Показать текущее задание', value: 'task' });
+    }
+
+    choices.push(
         { name: 'Проверить решение', value: 'check' },
         { name: 'Получить подсказку', value: 'hint' },
         new inquirer.Separator(),
         { name: 'Помощь', value: 'help' },
         { name: 'Сбросить прогресс и начать сначала', value: 'reset' },
-        { name: 'Выйти из игры', value: 'exit' },
-      ],
+        { name: 'Выйти из игры', value: 'exit' }
+    );
+
+    const { action } = await inquirer.prompt({
+      type: 'list',
+      name: 'action',
+      message: chalk.yellow('Что будем делать, боец?'),
+      choices,
     });
     return action;
   } catch (error) {
@@ -157,7 +168,7 @@ async function mainMenu() {
 }
 
 async function pressEnterToContinue() {
-    console.log(''); // Добавляем пустую строку для отступа
+    console.log('');
     if (!process.stdout.isTTY) {
         console.log(chalk.dim('...'));
         return;
@@ -210,21 +221,29 @@ async function gameLoop() {
   }
   
   let running = true;
+  let taskShownOnce = false;
   while (running) {
     console.clear();
-    const action = await mainMenu();
+    const action = await mainMenu(taskShownOnce);
     console.clear();
 
     switch (action) {
       case 'task':
         await showTask();
+        taskShownOnce = true;
+        await pressEnterToContinue();
+        break;
+      case 'task_again':
+        await showTask({ instant: true });
         await pressEnterToContinue();
         break;
       case 'check':
         const wasCorrect = await handleCheck();
         if (wasCorrect) {
+            taskShownOnce = false;
             console.clear();
             await showTask();
+            taskShownOnce = true;
             await pressEnterToContinue();
         }
         break;
@@ -245,6 +264,7 @@ async function gameLoop() {
         });
         if (confirm) {
             game.reset();
+            taskShownOnce = false;
             console.log(chalk.yellow('Прогресс сброшен. Начинаем с чистого листа.'));
         }
         await sleep(1500);

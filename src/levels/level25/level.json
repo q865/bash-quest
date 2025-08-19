@@ -1,18 +1,91 @@
 {
-    "title": "Диплом: Простой рекон",
-    "hint": "Создай скрипт, который автоматизирует сбор информации о домене.",
+    "title": "Цикл `for`",
+    "task": "### Дедовский Ликбез\n\nИногда нужно сделать одно и то же действие для кучи разных элементов. Например, переименовать 100 файлов. Руками это делать — ебануться. Для этого есть циклы. `for` — самый простой из них.\n\nОн берёт список, и по очереди выполняет блок команд для каждого элемента.\n\n**Синтаксис:**\n```bash\nfor item in item1 item2 item3\ndo\n    echo \"Processing $item\"\ndone\n```\n\nЭтот скрипт три раза выполнит команду `echo`, каждый раз подставляя в переменную `$item` следующее значение из списка.\n\nМожно итерироваться по файлам:\n`for file in *.txt`\n\nИли по числам:\n`for i in {1..5}`\n\n### Твоя Задача\n\nСоздай три файла: `file1.txt`, `file2.txt`, `file3.txt`.\n\n**Напиши скрипт `backup.sh`, который в цикле `for` пройдётся по этим файлам и для каждого создаст бэкап с расширением `.bak`** (т.е. `file1.txt.bak`, `file2.txt.bak` и т.д.).",
+    "hint": "Внутри цикла `for file in file*.txt` используй команду `cp \"$file\" \"$file.bak\"`. Кавычки важны, если в именах файлов есть пробелы.",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "file1.txt",
+                "content": "1"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "file2.txt",
+                "content": "2"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "file3.txt",
+                "content": "3"
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "backup.sh"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file1.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file2.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file3.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file1.txt.bak"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file2.txt.bak"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file3.txt.bak"
+            }
+        }
+    ],
     "validation": [
         {
             "validator": "file_exists",
             "args": {
-                "path": "recon.sh"
+                "path": "file1.txt.bak"
             }
         },
         {
-            "validator": "script_produces_output",
+            "validator": "file_exists",
             "args": {
-                "script": "./recon.sh google.com",
-                "output": "Domain Name:"
+                "path": "file2.txt.bak"
+            }
+        },
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "file3.txt.bak"
             }
         }
     ]

@@ -1,12 +1,21 @@
 {
-    "title": "Продвинутые CLI: process.argv",
-    "hint": "`process.argv` — это массив, содержащий аргументы командной строки.",
+    "title": "Команда `alias`",
+    "task": "### Дедовский Ликбез\n\nЗаебался писать длинные команды? `alias` — твой дружбан. Он позволяет создавать короткие псевдонимы для длинных команд.\n\nНапример, вместо `ls -lha` каждый раз, ты можешь сделать так:\n\n`alias ll='ls -lha'`\n\nТеперь, когда ты введёшь `ll`, терминал выполнит `ls -lha`. Удобно, пиздец.\n\nАлиасы обычно прописывают в файл `~/.bashrc` или `~/.zshrc`, чтобы они были доступны при каждом запуске терминала. Но для задания хватит и временного.\n\n### Твоя Задача\n\n**Создай файл `aliases.txt` и напиши в нём команду для создания алиаса `update`, который будет выполнять `sudo apt update && sudo apt upgrade -y`**.",
+    "hint": "Просто `alias update='sudo apt update && sudo apt upgrade -y'`.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "aliases.txt"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "script_produces_output",
+            "validator": "file_contains",
             "args": {
-                "script": "node cli.js test",
-                "output": "test"
+                "path": "aliases.txt",
+                "content": "alias update='sudo apt update && sudo apt upgrade -y'"
             }
         }
     ]

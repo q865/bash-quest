@@ -1,12 +1,22 @@
 {
-    "title": "Анализ логов: awk",
-    "hint": "`awk` обрабатывает текст построчно и умеет разделять строки на колонки.",
+    "title": "Node.js: Модуль `process`",
+    "task": "### Дедовский Ликбез\n\nПомнишь аргументы командной строки в Bash (`$1`, `$2`)? В Node.js тоже, блядь, можно. Для этого есть глобальный объект `process`.\n\n`process.argv` — это массив, который содержит все аргументы.\n\n**Пример:** `node my_app.js hello ded`\n\n`process.argv` будет выглядеть так:\n```\n[\n  '/usr/bin/node',       // Путь к самому Node.js\n  '/path/to/my_app.js', // Путь к твоему скрипту\n  'hello',               // Первый аргумент\n  'ded'                  // Второй аргумент\n]\n```\n\nКак видишь, первые два элемента — служебная хуйня. Твои аргументы начинаются с индекса `2`.\n\n### Твоя Задача\n\n**Напиши Node.js-скрипт `arg_reader.js`, который берёт первый переданный ему аргумент и выводит в консоль \"You passed: [аргумент]\".**",
+    "hint": "Тебе нужен третий элемент массива: `process.argv[2]`.",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "arg_reader.js"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_contains",
+            "validator": "script_produces_output",
             "args": {
-                "path": "ips.txt",
-                "content": "192.168.1.1"
+                "path": "arg_reader.js",
+                "output": "You passed: test_arg",
+                "command": "node arg_reader.js test_arg"
             }
         }
     ]

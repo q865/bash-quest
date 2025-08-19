@@ -1,21 +1,43 @@
 {
-  "title": "Парсинг JSON с `jq`",
-  "hint": "curl -s https://catfact.ninja/fact | jq -r '.fact' > trainee_stuff/cat_fact.txt",
-  "validation": [
-    {
-      "validator": "file_has_content",
-      "args": {
-        "path": "trainee_stuff/cat_fact.txt",
-        "min_length": 10
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/cat_fact.txt"
-      }
-    }
-  ]
+    "title": "Команда `find`",
+    "task": "### Дедовский Ликбез\n\nКогда файлов становится дохуя, `ls` уже не спасает. Нужен инструмент посерьёзнее. `find` — это твой персональный сыщик. Он может найти файл или папку где угодно, по имени, размеру, дате, чему, блядь, угодно.\n\nСинтаксис у него поначалу кажется ебанутым, но ты привыкай:\n\n`find [где_искать] -name '[что_искать]'`\n\nНапример:\n`find . -name '*.txt'`\n\nЭта команда найдёт **во всех вложенных папках**, начиная с текущей (`.`), все файлы, которые заканчиваются на `.txt`.\n\n`find` — это пиздец какая мощная хуйня. У неё миллион ключей, но для начала запомни `-name`.\n\n### Твоя Задача\n\nВнутри `trainee_stuff` я создал целый лабиринт из папок, а в одной из них спрятал файл `secret.txt`. Мне лень его искать.\n\n**Найди файл `secret.txt` с помощью `find` и сохрани путь к нему в файл `secret_path.txt`**.",
+    "hint": "`find . -name 'secret.txt' > secret_path.txt`",
+    "setup": [
+        {
+            "action": "create_directory",
+            "args": {
+                "path": "trainee_stuff/dir1/dir2/dir3"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "trainee_stuff/dir1/dir2/dir3/secret.txt",
+                "content": "Дед был здесь"
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_directory",
+            "args": {
+                "path": "trainee_stuff/dir1"
+            }
+        }
+    ],
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "secret_path.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "secret_path.txt",
+                "content": "secret.txt"
+            }
+        }
+    ]
 }

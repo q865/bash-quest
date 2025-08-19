@@ -1,32 +1,13 @@
 {
-  "title": "Удаление: rm",
-  "hint": "Можно удалить оба файла одной командой: `rm trainee_stuff/not_a_secret.txt trainee_stuff/backup_secret.txt`",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/not_a_secret.txt"
-      }
-    },
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/backup_secret.txt"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_not_exists",
-      "args": {
-        "path": "trainee_stuff/not_a_secret.txt"
-      }
-    },
-    {
-      "validator": "file_not_exists",
-      "args": {
-        "path": "trainee_stuff/backup_secret.txt"
-      }
-    }
-  ]
+    "title": "Команда `cat`",
+    "task": "### Дедовский Ликбез\n\nСоздать файл — это полдела. Надо ещё посмотреть, что там внутри. Для этого есть команда `cat` (сокращение от concatenate, но хуй с ним, просто \"кат\").\n\nОна выводит содержимое файла прямо в консоль. Удобно для небольших файлов.\n\n`cat my_notes.txt`\n\nЕсли файла нет, `cat` ругнётся. Если файл большой, он засрёт тебе весь экран. Так что используй с умом.\n\n### Твоя Задача\n\nВ этой директории есть файл `cat_fact.txt`. Мне лень самому его читать.\n\n**Выведи его содержимое на экран с помощью `cat`**. Я проверю, что команда выполнилась успешно.",
+    "hint": "Просто `cat cat_fact.txt`.",
+    "validation": [
+        {
+            "validator": "command_succeeds",
+            "args": {
+                "command": "cat cat_fact.txt"
+            }
+        }
+    ]
 }

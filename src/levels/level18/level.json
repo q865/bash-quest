@@ -1,21 +1,20 @@
 {
-  "title": "Выдираем ссылки",
-  "hint": "curl -s example.com | grep -oE 'https?://[^"']+' > trainee_stuff/links.txt",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/links.txt",
-        "content": "http"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/links.txt"
-      }
-    }
-  ]
+    "title": "Команда `curl`",
+    "task": "### Дедовский Ликбез\n\nДобро пожаловать в интернет, салага. `curl` — это твой швейцарский нож для работы с сетью. Он может скачивать файлы, отправлять данные, тестировать API — да всё, что угодно, что работает по HTTP.\n\nВ простейшем виде, `curl` просто скачивает страницу и выводит её содержимое в консоль.\n\n`curl https://example.com`\n\nВывод будет — HTML-код страницы. Если хочешь сохранить его в файл, ты уже знаешь как:\n\n`curl https://example.com > page.html`\n\n`curl` — это основа для любого парсинга и автоматизации в сети. Инструмент, блядь, всемогущий.\n\n### Твоя Задача\n\nЕсть такой сервис, `wttr.in`, который показывает погоду в текстовом виде, специально для консоли. Мне лень открывать браузер.\n\n**Получи с помощью `curl` погоду для Москвы и сохрани её в файл `weather.txt`**.\n\nАдрес: `wttr.in/Moscow`",
+    "hint": "`curl wttr.in/Moscow > weather.txt`",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "weather.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "weather.txt",
+                "content": "Weather report"
+            }
+        }
+    ]
 }
