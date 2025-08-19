@@ -1,16 +1,12 @@
 {
-  "title": "Подбор паролей: Брутфорс",
-  "hint": "123456, password, qwerty",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/bruteforce.txt",
-        "content": "123456"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/bruteforce.txt" } }
-  ]
+    "title": "Подбор паролей: Брутфорс",
+    "hint": "Брутфорс — это тупой перебор всех возможных паролей. Долго, но иногда, блядь, работает.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "bruteforce.sh"
+            }
+        }
+    ]
 }

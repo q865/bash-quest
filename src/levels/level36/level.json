@@ -1,33 +1,19 @@
 {
-  "title": "Запуск Node.js скриптов",
-  "hint": "node trainee_stuff/hello.js > trainee_stuff/node_output.txt",
-  "validation": [
-    {
-      "validator": "file_exists",
-      "args": {
-        "path": "trainee_stuff/hello.js"
-      }
-    },
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/node_output.txt",
-        "content": "Node.js, сука, работает!"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/hello.js"
-      }
-    },
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/node_output.txt"
-      }
-    }
-  ]
+    "title": "Запуск скриптов",
+    "hint": "Используй команду `node script.js` для запуска скриптов.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "hello.js"
+            }
+        },
+        {
+            "validator": "script_produces_output",
+            "args": {
+                "script": "node hello.js",
+                "output": "Hello from Node.js"
+            }
+        }
+    ]
 }

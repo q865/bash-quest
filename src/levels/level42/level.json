@@ -1,16 +1,12 @@
 {
-  "title": "Автоматизация браузера: Puppeteer",
-  "hint": "const puppeteer = require('puppeteer');",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/puppeteer_test.js",
-        "content": "require('puppeteer')"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/puppeteer_test.js" } }
-  ]
+    "title": "Автоматизация браузера: Puppeteer",
+    "hint": "`puppeteer` запускает настоящий браузер, которым ты можешь управлять из кода.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "puppeteer_script.js"
+            }
+        }
+    ]
 }

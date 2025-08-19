@@ -15,9 +15,11 @@ const __dirname = path.dirname(__filename);
 // --- Definitive Module Imports ---
 const gamePath = path.resolve(__dirname, '../src/game.js');
 const uiPath = path.resolve(__dirname, '../src/ui.js');
+const utilsPath = path.resolve(__dirname, '../src/utils.js');
 
 const { default: Game } = await import(pathToFileURL(gamePath).href);
 const { displayWelcome, displayProgress } = await import(pathToFileURL(uiPath).href);
+const { typeWriter } = await import(pathToFileURL(utilsPath).href);
 // --- End of Imports ---
 
 const game = new Game();
@@ -27,20 +29,19 @@ const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 async function showTask() {
     const task = await game.getTask();
     if (task.isComplete) {
-        console.log(chalk.bold.magenta('Упс, кажется, все уровни пройдены! Поздравляем!'));
-        console.log('Начинаем игру заново...');
+        await typeWriter(chalk.bold.magenta('Упс, кажется, все уровни пройдены! Поздравляем!'));
+        await typeWriter('Начинаем игру заново...');
         game.reset();
         return;
     }
 
-    const boxContent = `${chalk.yellow.bold(`--- ${task.name} ---`)}
-
-${chalk.cyan(task.task)}`;
-    console.log(boxen(boxContent, { padding: 1, margin: 1, borderStyle: 'double', borderColor: 'gray' }));
+    console.log(chalk.yellow.bold(`--- ${task.name} ---
+`));
+    await typeWriter(chalk.cyan(task.task));
 }
 
 async function handleBranch(branch) {
-    console.log(chalk.yellow(branch.message));
+    await typeWriter(chalk.yellow(branch.message));
     
     const choices = branch.choices.map(choice => ({ name: choice.name, value: choice.next_level }));
 
@@ -66,8 +67,8 @@ async function handleCheck() {
     spinner.succeed(chalk.green('Отлично, все верно! Задание выполнено.'));
     
     if (result.isComplete) {
-        console.log(chalk.bold.magenta('ДА ЛАДНО?! Ты прошел всю игру! Мое почтение.'));
-        console.log('Начинаем заново, чтобы скилл не терял.');
+        await typeWriter(chalk.bold.magenta('ДА ЛАДНО?! Ты прошел всю игру! Мое почтение.'));
+        await typeWriter('Начинаем заново, чтобы скилл не терял.');
         game.reset();
         await sleep(3000);
         return true;
@@ -82,32 +83,46 @@ async function handleCheck() {
   } else {
     spinner.fail(chalk.red('Хм, что-то не так.'));
     if (result.message) {
-        console.log(boxen(chalk.red.italic(result.message), { title: 'Комментарий Деда', padding: 1, borderStyle: 'round', borderColor: 'red' }));
+        console.log(chalk.red.bold('\nКомментарий Деда:'));
+        await typeWriter(chalk.red.italic(result.message));
     }
     await sleep(1500);
     return false;
   }
 }
 
-function showHint() {
+async function showHint() {
     const hint = game.getHint();
-    console.log(boxen(chalk.italic(hint), { title: 'Подсказка от Деда', padding: 1, borderStyle: 'round', borderColor: 'yellow' }));
+    console.log(chalk.yellow.bold('Подсказка от Деда:'));
+    await typeWriter(chalk.yellow.italic(hint));
 }
 
 function showHelp() {
-    const helpText = `
-${chalk.bold.yellow('Добро пожаловать в "Кибер-закалку"!')}
+    const welcome = chalk.bold.yellow('Добро пожаловать в "Кибер-закалку"!');
+    const description = 'Это интерактивный курс для изучения командной строки Bash.';
+    const howToPlay = chalk.bold('Как играть:');
+    
+    // Safely construct strings to avoid syntax errors
+    const step1 = '1. Выберите ' + chalk.green('"Показать текущее задание"') + ' из меню, чтобы получить задачу от Деда.';
+    const step2 = '2. Выполните задание, вводя команды прямо в вашем терминале.';
+    const step3 = '3. Выберите ' + chalk.green('"Проверить решение"') + ', чтобы Дед оценил вашу работу.';
+    const step4 = '4. Если застряли, выберите ' + chalk.green('"Получить подсказку"') + '.';
+    const goodLuck = 'Удачи, боец!';
 
-Это интерактивный курс для изучения командной строки Bash.
+    const helpText = [
+        welcome,
+        '',
+        description,
+        '',
+        howToPlay,
+        step1,
+        step2,
+        step3,
+        step4,
+        '',
+        goodLuck
+    ].join('\n');
 
-${chalk.bold('Как играть:')}
-1. Выберите ${chalk.green('"Показать текущее задание"')} из меню, чтобы получить задачу от Деда.
-2. Выполните задание, вводя команды прямо в вашем терминале.
-3. Выберите ${chalk.green('"Проверить решение"')}, чтобы Дед оценил вашу работу.
-4. Если застряли, выберите ${chalk.green('"Получить подсказку"')}.
-
-Удачи, боец!
-`;
     console.log(boxen(helpText, { padding: 1, borderStyle: 'double', borderColor: 'green' }));
 }
 
@@ -158,11 +173,39 @@ async function gameLoop() {
   displayWelcome();
   await sleep(2000);
 
+  const actionFromCli = process.argv[2];
+
+  if (actionFromCli) {
+    console.clear();
+    switch (actionFromCli) {
+      case 'task':
+        await showTask();
+        break;
+      case 'check':
+        await handleCheck();
+        break;
+      case 'hint':
+        await showHint();
+        break;
+      case 'help':
+        showHelp();
+        break;
+      case 'reset':
+        game.reset();
+        console.log(chalk.yellow('Прогресс сброшен. Начинаем с чистого листа.'));
+        break;
+      default:
+        console.log(chalk.red(`Неизвестное действие: ${actionFromCli}`));
+    }
+    console.log(gradient.pastel('\nДо встречи, боец!'));
+    return;
+  }
+
   if (!process.stdout.isTTY) {
     console.log(chalk.yellow('Обнаружен неинтерактивный терминал.'));
     console.log(chalk.cyan('Показываю текущее задание и выхожу.'));
     await showTask();
-    console.log(gradient.pastel('\nДо встречи, боец!'));
+    console.log(gradient.pastel('\nДо встречи, бое-ц!'));
     return;
   }
   
@@ -186,7 +229,7 @@ async function gameLoop() {
         }
         break;
       case 'hint':
-        showHint();
+        await showHint();
         await pressEnterToContinue();
         break;
       case 'help':

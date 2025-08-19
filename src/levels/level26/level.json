@@ -1,33 +1,19 @@
 {
-  "title": "Первый Bash-скрипт",
-  "hint": "Сначала `chmod +x trainee_stuff/hello.sh`, а потом `./trainee_stuff/hello.sh > trainee_stuff/hello_output.txt`",
-  "validation": [
-    {
-      "validator": "file_exists",
-      "args": {
-        "path": "trainee_stuff/hello.sh"
-      }
-    },
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/hello_output.txt",
-        "content": "Заебись, я родился!"
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/hello.sh"
-      }
-    },
-    {
-      "action": "delete_file",
-      "args": {
-        "path": "trainee_stuff/hello_output.txt"
-      }
-    }
-  ]
+    "title": "Первый Bash-скрипт",
+    "hint": "Создай файл с расширением .sh, не забудь сделать его исполняемым (`chmod +x`).",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "hello.sh"
+            }
+        },
+        {
+            "validator": "script_produces_output",
+            "args": {
+                "script": "./hello.sh",
+                "output": "Hello, World!"
+            }
+        }
+    ]
 }

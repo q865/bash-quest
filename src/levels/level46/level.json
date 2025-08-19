@@ -1,16 +1,12 @@
 {
-  "title": "Взлом баз: SQL-инъекции",
-  "hint": "' OR '1'='1",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/sql_injection.txt",
-        "content": "'1'='1"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/sql_injection.txt" } }
-  ]
+    "title": "Взлом баз: SQL-инъекции",
+    "hint": "SQL-инъекция — это когда ты подсовываешь сайту вредоносный SQL-код вместо обычных данных.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "sqli_payload.txt"
+            }
+        }
+    ]
 }

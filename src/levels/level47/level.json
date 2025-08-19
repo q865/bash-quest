@@ -1,16 +1,12 @@
 {
-  "title": "Атака на юзеров: XSS",
-  "hint": "<script>alert('pwned')</script>",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/xss_payload.txt",
-        "content": "<script>"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/xss_payload.txt" } }
-  ]
+    "title": "Атака на юзеров: XSS",
+    "hint": "XSS (Cross-Site Scripting) — это когда ты внедряешь свой JavaScript-код на чужую страницу.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "xss_payload.txt"
+            }
+        }
+    ]
 }

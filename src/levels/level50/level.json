@@ -1,16 +1,12 @@
 {
-  "title": "Финальное слово Деда",
-  "hint": "Спасибо, Дед",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/final_words.txt",
-        "content": "Спасибо, Дед"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/final_words.txt" } }
-  ]
+    "title": "Финальное слово Деда",
+    "hint": "Путь окончен. Но это только начало.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "THE_END.txt"
+            }
+        }
+    ]
 }

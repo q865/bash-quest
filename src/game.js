@@ -47,12 +47,16 @@ class Game {
     }
 
     loadState() {
+        const firstLevel = this.levels.length > 0 ? this.levels[0].id : 1;
+        const defaultState = { currentLevel: firstLevel, completedLevels: [] };
+
         if (fs.existsSync(STATE_FILE)) {
             const data = fs.readFileSync(STATE_FILE, 'utf-8');
-            return JSON.parse(data);
+            const loadedState = JSON.parse(data);
+            return { ...defaultState, ...loadedState };
         }
-        const firstLevel = this.levels.length > 0 ? this.levels[0].id : 1;
-        return { currentLevel: firstLevel, completedLevels: [] };
+        
+        return defaultState;
     }
 
     saveState() {

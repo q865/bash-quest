@@ -1,17 +1,13 @@
 {
-  "title": "Продвинутые CLI: process.argv",
-  "hint": "const [,, a, op, b] = process.argv; console.log(eval(`${a} ${op} ${b}`));",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/calc_result.txt",
-        "content": "50"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/calc.js" } },
-    { "action": "delete_file", "args": { "path": "trainee_stuff/calc_result.txt" } }
-  ]
+    "title": "Продвинутые CLI: process.argv",
+    "hint": "`process.argv` — это массив, содержащий аргументы командной строки.",
+    "validation": [
+        {
+            "validator": "script_produces_output",
+            "args": {
+                "script": "node cli.js test",
+                "output": "test"
+            }
+        }
+    ]
 }

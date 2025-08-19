@@ -1,0 +1,19 @@
+{
+    "title": "Диплом: Простой рекон",
+    "hint": "Создай скрипт, который автоматизирует сбор информации о домене.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "recon.sh"
+            }
+        },
+        {
+            "validator": "script_produces_output",
+            "args": {
+                "script": "./recon.sh google.com",
+                "output": "Domain Name:"
+            }
+        }
+    ]
+}

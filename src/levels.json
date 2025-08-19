@@ -27,7 +27,12 @@
         { "id": 17, "title": "Качаем сайты: wget", "path": "src/levels/level17" },
         { "id": 18, "title": "Выдираем ссылки", "path": "src/levels/level18" },
         { "id": 19, "title": "Удалённый доступ: ssh", "path": "src/levels/level19" },
-        { "id": 20, "title": "Копирование по сети: scp", "path": "src/levels/level20" }
+        { "id": 20, "title": "Копирование по сети: scp", "path": "src/levels/level20" },
+        { "id": 21, "title": "Разведка с `whois`", "path": "src/levels/level21" },
+        { "id": 22, "title": "Работа с API", "path": "src/levels/level22" },
+        { "id": 23, "title": "Скачивание файлов с `curl -O`", "path": "src/levels/level23" },
+        { "id": 24, "title": "Комбинация `curl` и `grep`", "path": "src/levels/level24" },
+        { "id": 25, "title": "Диплом: Простой рекон", "path": "src/levels/level25" }
       ]
     },
     {

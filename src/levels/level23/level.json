@@ -1,0 +1,12 @@
+{
+    "title": "Скачивание файлов с `curl -O`",
+    "hint": "Флаг `-O` у `curl` сохраняет файл с его оригинальным именем.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "robots.txt"
+            }
+        }
+    ]
+}

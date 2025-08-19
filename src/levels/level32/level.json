@@ -1,40 +1,13 @@
 {
-  "title": "Анализ логов: awk",
-  "hint": "awk '$2 == 5 {print $1}' trainee_stuff/grades.txt > trainee_stuff/excellent_students.txt",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/grades.txt",
-        "content": "Vasya 5\nPetya 4\nKolya 5\nSveta 3"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/excellent_students.txt",
-        "content": "Vasya"
-      }
-    },
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/excellent_students.txt",
-        "content": "Kolya"
-      }
-    },
-    {
-      "validator": "file_not_contains",
-      "args": {
-        "path": "trainee_stuff/excellent_students.txt",
-        "content": "Petya"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/grades.txt" } },
-    { "action": "delete_file", "args": { "path": "trainee_stuff/excellent_students.txt" } }
-  ]
+    "title": "Анализ логов: awk",
+    "hint": "`awk` обрабатывает текст построчно и умеет разделять строки на колонки.",
+    "validation": [
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "ips.txt",
+                "content": "192.168.1.1"
+            }
+        }
+    ]
 }

@@ -1,33 +1,13 @@
 {
-  "title": "Замена текста: sed",
-  "hint": "sed 's/old.server.com/new.cool.server.com/g' trainee_stuff/config.txt > trainee_stuff/new_config.txt",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/config.txt",
-        "content": "server_ip=old.server.com\nadmin_email=admin@old.server.com"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/new_config.txt",
-        "content": "server_ip=new.cool.server.com"
-      }
-    },
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/new_config.txt",
-        "content": "admin_email=admin@new.cool.server.com"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/config.txt" } },
-    { "action": "delete_file", "args": { "path": "trainee_stuff/new_config.txt" } }
-  ]
+    "title": "Замена текста: sed",
+    "hint": "Команда `sed 's/старое/новое/g' file` заменяет текст в файле.",
+    "validation": [
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "new_file.txt",
+                "content": "world"
+            }
+        }
+    ]
 }

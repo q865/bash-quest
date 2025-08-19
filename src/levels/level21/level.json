@@ -1,0 +1,19 @@
+{
+    "title": "Разведка с `whois`",
+    "hint": "Используй `whois` для получения информации о домене. Не забудь сохранить результат в файл.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "domain_info.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "domain_info.txt",
+                "content": "Domain Name:"
+            }
+        }
+    ]
+}

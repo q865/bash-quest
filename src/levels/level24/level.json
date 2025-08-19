@@ -1,0 +1,19 @@
+{
+    "title": "Комбинация `curl` и `grep`",
+    "hint": "Используй пайп (`|`) для передачи вывода `curl` на вход `grep`.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "links.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "links.txt",
+                "content": "href="
+            }
+        }
+    ]
+}

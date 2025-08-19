@@ -1,34 +1,12 @@
 {
-  "title": "Диплом: Анализатор логов",
-  "hint": "awk '{print $1}' trainee_stuff/access.log | sort | uniq -c | sort -nr",
-  "setup": [
-    {
-      "action": "create_file",
-      "args": {
-        "path": "trainee_stuff/access.log",
-        "content": "1.1.1.1 - GET /index.html\n2.2.2.2 - GET /about.html\n1.1.1.1 - GET /contact.html\n3.3.3.3 - GET /index.html\n2.2.2.2 - GET /index.html\n1.1.1.1 - GET /index.html"
-      }
-    }
-  ],
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/ip_stats.txt",
-        "content": "3 1.1.1.1"
-      }
-    },
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/ip_stats.txt",
-        "content": "2 2.2.2.2"
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/access.log" } },
-    { "action": "delete_file", "args": { "path": "trainee_stuff/analyzer.sh" } },
-    { "action": "delete_file", "args": { "path": "trainee_stuff/ip_stats.txt" } }
-  ]
+    "title": "Диплом: Анализатор логов",
+    "hint": "Объедини `grep`, `awk`, `sort`, `uniq` для анализа лог-файла.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "report.txt"
+            }
+        }
+    ]
 }

@@ -1,17 +1,12 @@
 {
-  "title": "Угон сессии: Куки",
-  "hint": "Сначала `curl -c trainee_stuff/my_cookies.txt httpbin.org/cookies/set?my_cookie=zaebis`, потом `curl -b trainee_stuff/my_cookies.txt httpbin.org/cookies > trainee_stuff/cookie_test.txt`",
-  "validation": [
-    {
-      "validator": "file_contains",
-      "args": {
-        "path": "trainee_stuff/cookie_test.txt",
-        "content": "\"my_cookie\": \"zaebis\""
-      }
-    }
-  ],
-  "cleanup": [
-    { "action": "delete_file", "args": { "path": "trainee_stuff/my_cookies.txt" } },
-    { "action": "delete_file", "args": { "path": "trainee_stuff/cookie_test.txt" } }
-  ]
+    "title": "Угон сессии: Куки",
+    "hint": "Куки — это информация, которую сайт хранит в твоем браузере. Если ее украсть, можно зайти под чужим именем.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "cookies.txt"
+            }
+        }
+    ]
 }
