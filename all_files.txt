@@ -1,0 +1,14 @@
+.git
+bin
+node_modules
+src
+trainee_stuff
+.bash_quest_state.json
+.gitignore
+all_files.txt
+babel.config.json
+file_list.txt
+GEMINI.md
+package-lock.json
+package.json
+README.md

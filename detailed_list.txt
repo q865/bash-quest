@@ -1,0 +1,12 @@
+drwxr-xr-x    - panch 19 Aug 12:51 bin
+drwxr-xr-x    - panch 19 Aug 03:37 node_modules
+drwxr-xr-x    - panch 19 Aug 12:58 src
+drwxr-xr-x    - panch 19 Aug 21:07 trainee_stuff
+.rw-r--r--  171 panch 19 Aug 21:03 all_files.txt
+.rw-r--r--   87 panch 29 Jul 06:19 babel.config.json
+.rw-r--r--    0 panch 20 Aug 00:34 detailed_list.txt
+.rw-r--r--  118 panch 19 Aug 18:39 file_list.txt
+.rw-r--r-- 3.3k panch 19 Aug 02:40 GEMINI.md
+.rw-r--r-- 417k panch 19 Aug 18:53 package-lock.json
+.rw-r--r-- 1.2k panch 19 Aug 03:37 package.json
+.rw-r--r-- 3.7k panch 19 Aug 12:47 README.md

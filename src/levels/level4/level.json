@@ -13,7 +13,7 @@
             "validator": "file_contains",
             "args": {
                 "path": "detailed_list.txt",
-                "content": "total"
+                "content": "README.md"
             }
         }
     ]

@@ -1,0 +1,4 @@
+drwxr-xr-x  - panch 19 Aug 19:03 dir1
+.rw-r--r-- 52 panch 19 Aug 13:52 cat_fact.txt
+.rw-r--r--  0 panch 19 Aug 21:07 detailed_list.txt
+.rw-r--r--  0 panch 19 Aug 11:19 my_notes.txt
