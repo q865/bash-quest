@@ -1,0 +1,21 @@
+{
+  "title": "Заголовки в `curl`",
+  "hint": "curl -H 'X-Ded-Said: zaebis' httpbin.org/headers > trainee_stuff/my_headers.txt",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/my_headers.txt",
+        "content": "X-Ded-Said": "zaebis"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/my_headers.txt"
+      }
+    }
+  ]
+}

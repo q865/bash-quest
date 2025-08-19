@@ -1,0 +1,28 @@
+{
+  "title": "Сканирование портов: nmap",
+  "hint": "nmap scanme.nmap.org | grep 'ssh' > trainee_stuff/nmap_result.txt",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/nmap_result.txt",
+        "content": "22/tcp"
+      }
+    },
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/nmap_result.txt",
+        "content": "ssh"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/nmap_result.txt"
+      }
+    }
+  ]
+}

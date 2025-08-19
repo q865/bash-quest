@@ -1,0 +1,12 @@
+{
+  "title": "Создание файлов: touch",
+  "hint": "Сначала зайди в директорию `trainee_stuff` с помощью `cd`, а потом уже создавай файл. Или укажи полный путь: `touch trainee_stuff/my_notes.txt`.",
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": {
+        "path": "trainee_stuff/my_notes.txt"
+      }
+    }
+  ]
+}

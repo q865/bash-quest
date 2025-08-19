@@ -1,0 +1,36 @@
+{
+  "title": "Поиск с `grep`",
+  "hint": "grep 'SECRET_KEY' trainee_stuff/ded_logs.txt > trainee_stuff/found_key.txt",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/ded_logs.txt",
+        "content": "INFO: User logged in\nWARN: Disk space is low\nDEBUG: Request received\nINFO: SECRET_KEY=BlyaKakoySecretniyKlyuch\nERROR: Connection failed"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/found_key.txt",
+        "content": "SECRET_KEY=BlyaKakoySecretniyKlyuch"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/ded_logs.txt"
+      }
+    },
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/found_key.txt"
+      }
+    }
+  ]
+}

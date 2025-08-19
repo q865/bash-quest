@@ -1,0 +1,16 @@
+{
+  "title": "Атака на юзеров: XSS",
+  "hint": "<script>alert('pwned')</script>",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/xss_payload.txt",
+        "content": "<script>"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/xss_payload.txt" } }
+  ]
+}

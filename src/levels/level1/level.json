@@ -1,0 +1,19 @@
+{
+    "title": "Команда `ls`",
+    "hint": "Чтобы сохранить вывод команды в файл, используй оператор `>`.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "file_list.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "file_list.txt",
+                "content": "package.json"
+            }
+        }
+    ]
+}

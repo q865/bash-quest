@@ -1,0 +1,30 @@
+{
+  "title": "Свой веб-сервер: Express",
+  "hint": "app.get('/ded', (req, res) => { res.send('zaebis'); }); app.listen(8080);",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/server.js",
+        "content": "require('express')"
+      }
+    },
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/server.js",
+        "content": "app.listen(8080)"
+      }
+    },
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/server.js",
+        "content": "/ded"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/server.js" } }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Перемещение: mv",
+  "hint": "Команда `mv trainee_stuff/secret_word.txt trainee_stuff/not_a_secret.txt` сделает то, что нужно.",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/secret_word.txt",
+        "content": "хуй"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": {
+        "path": "trainee_stuff/not_a_secret.txt"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/not_a_secret.txt"
+      }
+    }
+  ]
+}

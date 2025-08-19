@@ -1,0 +1,27 @@
+{
+  "title": "Работа с файлами: fs",
+  "hint": "const fs = require('fs'); const data = fs.readFileSync('trainee_stuff/input.txt', 'utf8'); fs.writeFileSync('trainee_stuff/output.txt', data);",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/input.txt",
+        "content": "eto testoviy content"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/output.txt",
+        "content": "eto testoviy content"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/copier.js" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/input.txt" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/output.txt" } }
+  ]
+}

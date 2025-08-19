@@ -1,0 +1,35 @@
+{
+  "title": "Копирование: cp",
+  "hint": "cp trainee_stuff/not_a_secret.txt trainee_stuff/backup_secret.txt",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/not_a_secret.txt",
+        "content": "some secret content"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": {
+        "path": "trainee_stuff/backup_secret.txt"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/not_a_secret.txt"
+      }
+    },
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/backup_secret.txt"
+      }
+    }
+  ]
+}

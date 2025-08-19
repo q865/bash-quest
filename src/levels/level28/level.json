@@ -1,0 +1,46 @@
+{
+  "title": "Цикл `for`",
+  "hint": "for f in trainee_stuff/*.txt; do mv \"$f\" \"$f.bak\"; done",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": { "path": "trainee_stuff/log1.txt" }
+    },
+    {
+      "action": "create_file",
+      "args": { "path": "trainee_stuff/log2.txt" }
+    },
+    {
+      "action": "create_file",
+      "args": { "path": "trainee_stuff/log3.txt" }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": { "path": "trainee_stuff/log1.txt.bak" }
+    },
+    {
+      "validator": "file_exists",
+      "args": { "path": "trainee_stuff/log2.txt.bak" }
+    },
+    {
+      "validator": "file_exists",
+      "args": { "path": "trainee_stuff/log3.txt.bak" }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": { "path": "trainee_stuff/log1.txt.bak" }
+    },
+    {
+      "action": "delete_file",
+      "args": { "path": "trainee_stuff/log2.txt.bak" }
+    },
+    {
+      "action": "delete_file",
+      "args": { "path": "trainee_stuff/log3.txt.bak" }
+    }
+  ]
+}

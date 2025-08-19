@@ -1,0 +1,32 @@
+{
+  "title": "Переменные и аргументы",
+  "hint": "Внутри скрипта должна быть строка `mkdir $1`. Запускать так: `./trainee_stuff/mkr.sh test_dir`",
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": {
+        "path": "trainee_stuff/mkr.sh"
+      }
+    },
+    {
+      "validator": "directory_exists",
+      "args": {
+        "path": "test_dir"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/mkr.sh"
+      }
+    },
+    {
+      "action": "delete_directory",
+      "args": {
+        "path": "test_dir"
+      }
+    }
+  ]
+}

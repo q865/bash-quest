@@ -1,0 +1,17 @@
+{
+  "title": "Функции в Bash",
+  "hint": "greet() { echo \"Заебись, $1!\"; }; greet \"Ded\"",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/functional_output.txt",
+        "content": "Заебись, Ded!"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/functional.sh" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/functional_output.txt" } }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "title": "Условия `if`",
+  "hint": "if [ -f trainee_stuff/secret.txt ]; then echo 'Нашёл!'; else echo 'Не нашёл!'; fi",
+  "validation": [
+    {
+      "validator": "script_produces_output",
+      "args": {
+        "script_path": "trainee_stuff/checker.sh",
+        "setup_actions": [
+          { "action": "create_file", "args": { "path": "trainee_stuff/secret.txt" } }
+        ],
+        "expected_output": "Нашёл!",
+        "cleanup_actions": [
+          { "action": "delete_file", "args": { "path": "trainee_stuff/secret.txt" } }
+        ]
+      }
+    },
+    {
+      "validator": "script_produces_output",
+      "args": {
+        "script_path": "trainee_stuff/checker.sh",
+        "expected_output": "Не нашёл!"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/checker.sh"
+      }
+    }
+  ]
+}

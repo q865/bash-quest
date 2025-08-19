@@ -1,0 +1,21 @@
+{
+  "title": "Знакомство с `curl`",
+  "hint": "curl ifconfig.me/ip > trainee_stuff/my_ip.txt",
+  "validation": [
+    {
+      "validator": "file_matches_regex",
+      "args": {
+        "path": "trainee_stuff/my_ip.txt",
+        "regex": "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/my_ip.txt"
+      }
+    }
+  ]
+}

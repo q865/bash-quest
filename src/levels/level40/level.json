@@ -1,0 +1,21 @@
+{
+  "title": "Диплом: Telegram-бот",
+  "hint": "const TelegramBot = require('node-telegram-bot-api');",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/bot.js",
+        "content": "node-telegram-bot-api"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/bot.js"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Создание директории",
+  "validation": [
+    {
+      "validator": "directory_exists",
+      "args": {
+        "path": "trainee_stuff"
+      },
+      "message": "Хм, а где папка 'trainee_stuff'? Я её не вижу. Ты точно её создал?"
+    }
+  ],
+  "hints": [
+    "Команда для создания директорий — `mkdir`.",
+    "Просто напиши: `mkdir trainee_stuff`"
+  ]
+}

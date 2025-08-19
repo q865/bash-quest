@@ -1,0 +1,28 @@
+{
+  "title": "Отправка данных: curl POST",
+  "hint": "curl -d 'user=trainee&status=zaebis' httpbin.org/post > trainee_stuff/post_result.txt",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/post_result.txt",
+        "content": "\"user\": \"trainee\""
+      }
+    },
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/post_result.txt",
+        "content": "\"status\": \"zaebis\""
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/post_result.txt"
+      }
+    }
+  ]
+}

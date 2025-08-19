@@ -1,0 +1,32 @@
+{
+  "title": "Удаление: rm",
+  "hint": "Можно удалить оба файла одной командой: `rm trainee_stuff/not_a_secret.txt trainee_stuff/backup_secret.txt`",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/not_a_secret.txt"
+      }
+    },
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/backup_secret.txt"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_not_exists",
+      "args": {
+        "path": "trainee_stuff/not_a_secret.txt"
+      }
+    },
+    {
+      "validator": "file_not_exists",
+      "args": {
+        "path": "trainee_stuff/backup_secret.txt"
+      }
+    }
+  ]
+}

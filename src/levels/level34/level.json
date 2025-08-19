@@ -1,0 +1,28 @@
+{
+  "title": "Управление процессами",
+  "hint": "ps aux | grep 'init' > trainee_stuff/init_process.txt",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/init_process.txt",
+        "content": "init"
+      }
+    },
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/init_process.txt",
+        "content": "root"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/init_process.txt"
+      }
+    }
+  ]
+}

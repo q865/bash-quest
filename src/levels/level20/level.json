@@ -1,0 +1,21 @@
+{
+  "title": "Копирование по сети: scp",
+  "hint": "scp root@192.168.1.100:/etc/passwd .",
+  "validation": [
+    {
+      "validator": "file_matches_regex",
+      "args": {
+        "path": "trainee_stuff/scp_command.txt",
+        "regex": "^scp\\s+root@192\\.168\\.1\\.100:\\/etc\\/passwd\\s+\\.$"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/scp_command.txt"
+      }
+    }
+  ]
+}

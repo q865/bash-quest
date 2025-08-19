@@ -1,0 +1,17 @@
+{
+  "title": "Парсинг API: axios",
+  "hint": "axios.get('...').then(res => fs.writeFileSync('...', res.data.title));",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/todo_title.txt",
+        "content": "delectus aut autem"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/api_puller.js" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/todo_title.txt" } }
+  ]
+}

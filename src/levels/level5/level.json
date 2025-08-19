@@ -1,0 +1,36 @@
+{
+  "title": "Чтение файлов: cat",
+  "hint": "Команда `cat trainee_stuff/notes_from_ded.txt > trainee_stuff/secret_word.txt` сделает всё за один раз.",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/notes_from_ded.txt",
+        "content": "Дед одобряет твое рвение. Секретное слово: 'хуй'."
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/secret_word.txt",
+        "content": "хуй"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/notes_from_ded.txt"
+      }
+    },
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/secret_word.txt"
+      }
+    }
+  ]
+}

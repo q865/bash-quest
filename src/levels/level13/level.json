@@ -1,0 +1,21 @@
+{
+  "title": "Парсинг JSON с `jq`",
+  "hint": "curl -s https://catfact.ninja/fact | jq -r '.fact' > trainee_stuff/cat_fact.txt",
+  "validation": [
+    {
+      "validator": "file_has_content",
+      "args": {
+        "path": "trainee_stuff/cat_fact.txt",
+        "min_length": 10
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/cat_fact.txt"
+      }
+    }
+  ]
+}

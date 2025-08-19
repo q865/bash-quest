@@ -1,0 +1,21 @@
+{
+  "title": "Выдираем ссылки",
+  "hint": "curl -s example.com | grep -oE 'https?://[^"']+' > trainee_stuff/links.txt",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/links.txt",
+        "content": "http"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/links.txt"
+      }
+    }
+  ]
+}

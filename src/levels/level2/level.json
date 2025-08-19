@@ -1,0 +1,19 @@
+{
+    "title": "Команда `ls -a`",
+    "hint": "Ключ `-a` — это сокращение от 'all'. Он показывает абсолютно все.",
+    "validation": [
+        {
+            "validator": "file_exists",
+            "args": {
+                "path": "all_files.txt"
+            }
+        },
+        {
+            "validator": "file_contains",
+            "args": {
+                "path": "all_files.txt",
+                "content": ".git"
+            }
+        }
+    ]
+}

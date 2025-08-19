@@ -1,0 +1,28 @@
+{
+  "title": "DNS-разведка: dig",
+  "hint": "dig github.com | grep -E '\\sA\\s' > trainee_stuff/github_ip.txt",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/github_ip.txt",
+        "content": "github.com."
+      }
+    },
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/github_ip.txt",
+        "content": "A"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/github_ip.txt"
+      }
+    }
+  ]
+}

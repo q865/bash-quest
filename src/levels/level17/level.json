@@ -1,0 +1,20 @@
+{
+  "title": "Качаем сайты: wget",
+  "hint": "wget example.com",
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": {
+        "path": "index.html"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "index.html"
+      }
+    }
+  ]
+}

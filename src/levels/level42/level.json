@@ -1,0 +1,16 @@
+{
+  "title": "Автоматизация браузера: Puppeteer",
+  "hint": "const puppeteer = require('puppeteer');",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/puppeteer_test.js",
+        "content": "require('puppeteer')"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/puppeteer_test.js" } }
+  ]
+}

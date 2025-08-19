@@ -1,0 +1,36 @@
+{
+  "title": "Потоки и пайпы",
+  "hint": "cat trainee_stuff/long_text.txt | grep 'пароль' > trainee_stuff/password_line.txt",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/long_text.txt",
+        "content": "тут много разного текста\nи всякой хуйни\nно где-то здесь есть пароль\nа может и нет\nточно есть, не сомневайся"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/password_line.txt",
+        "content": "но где-то здесь есть пароль"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/long_text.txt"
+      }
+    },
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/password_line.txt"
+      }
+    }
+  ]
+}

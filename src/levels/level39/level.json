@@ -1,0 +1,27 @@
+{
+  "title": "Парсинг HTML: cheerio",
+  "hint": "const $ = cheerio.load(html); const secret = $('#secret').text();",
+  "setup": [
+    {
+      "action": "create_file",
+      "args": {
+        "path": "trainee_stuff/index.html",
+        "content": "<html><body><div><p>some text</p><span id='secret'>eto ochen secretniy text</span></div></body></html>"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/secret_text.txt",
+        "content": "eto ochen secretniy text"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/parser.js" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/index.html" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/secret_text.txt" } }
+  ]
+}

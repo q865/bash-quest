@@ -1,0 +1,16 @@
+{
+  "title": "Взлом баз: SQL-инъекции",
+  "hint": "' OR '1'='1",
+  "validation": [
+    {
+      "validator": "file_contains",
+      "args": {
+        "path": "trainee_stuff/sql_injection.txt",
+        "content": "'1'='1"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/sql_injection.txt" } }
+  ]
+}

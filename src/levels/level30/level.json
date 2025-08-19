@@ -1,0 +1,21 @@
+{
+  "title": "Планировщик `cron`",
+  "hint": "30 3 * * * /home/user/backup.sh",
+  "validation": [
+    {
+      "validator": "file_matches_regex",
+      "args": {
+        "path": "trainee_stuff/my_cron.txt",
+        "regex": "^30\\s+3\\s+*\\s+*\\s+*\\s+\/home\/user\/backup\\.sh$"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "action": "delete_file",
+      "args": {
+        "path": "trainee_stuff/my_cron.txt"
+      }
+    }
+  ]
+}

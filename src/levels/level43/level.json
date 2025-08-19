@@ -1,0 +1,16 @@
+{
+  "title": "Puppeteer: Скриншот",
+  "hint": "const browser = await puppeteer.launch(); ... await page.screenshot({ path: 'trainee_stuff/example.png' });",
+  "validation": [
+    {
+      "validator": "file_exists",
+      "args": {
+        "path": "trainee_stuff/example.png"
+      }
+    }
+  ],
+  "cleanup": [
+    { "action": "delete_file", "args": { "path": "trainee_stuff/screenshoter.js" } },
+    { "action": "delete_file", "args": { "path": "trainee_stuff/example.png" } }
+  ]
+}

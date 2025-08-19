@@ -1,0 +1,217 @@
+#!/usr/bin/env node
+
+import chalk from 'chalk';
+import inquirer from 'inquirer';
+import gradient from 'gradient-string';
+import figlet from 'figlet';
+import ora from 'ora';
+import boxen from 'boxen';
+import { fileURLToPath, pathToFileURL } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// --- Definitive Module Imports ---
+const gamePath = path.resolve(__dirname, '../src/game.js');
+const uiPath = path.resolve(__dirname, '../src/ui.js');
+
+const { default: Game } = await import(pathToFileURL(gamePath).href);
+const { displayWelcome, displayProgress } = await import(pathToFileURL(uiPath).href);
+// --- End of Imports ---
+
+const game = new Game();
+
+const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
+
+async function showTask() {
+    const task = await game.getTask();
+    if (task.isComplete) {
+        console.log(chalk.bold.magenta('Упс, кажется, все уровни пройдены! Поздравляем!'));
+        console.log('Начинаем игру заново...');
+        game.reset();
+        return;
+    }
+
+    const boxContent = `${chalk.yellow.bold(`--- ${task.name} ---`)}
+
+${chalk.cyan(task.task)}`;
+    console.log(boxen(boxContent, { padding: 1, margin: 1, borderStyle: 'double', borderColor: 'gray' }));
+}
+
+async function handleBranch(branch) {
+    console.log(chalk.yellow(branch.message));
+    
+    const choices = branch.choices.map(choice => ({ name: choice.name, value: choice.next_level }));
+
+    const { next_level_id } = await inquirer.prompt({
+        type: 'list',
+        name: 'next_level_id',
+        message: 'Выбери свой путь:',
+        choices: choices,
+    });
+
+    game.setLevel(next_level_id);
+    console.log(chalk.green('Выбор сделан! Новые задания ждут.'));
+    await sleep(1500);
+}
+
+async function handleCheck() {
+  const spinner = ora('Дед проверяет твое решение...').start();
+  await sleep();
+  
+  const result = await game.checkSolution();
+
+  if (result.success) {
+    spinner.succeed(chalk.green('Отлично, все верно! Задание выполнено.'));
+    
+    if (result.isComplete) {
+        console.log(chalk.bold.magenta('ДА ЛАДНО?! Ты прошел всю игру! Мое почтение.'));
+        console.log('Начинаем заново, чтобы скилл не терял.');
+        game.reset();
+        await sleep(3000);
+        return true;
+    }
+    
+    if (result.branch) {
+        await handleBranch(result.branch);
+    }
+
+    await sleep(1500);
+    return true;
+  } else {
+    spinner.fail(chalk.red('Хм, что-то не так.'));
+    if (result.message) {
+        console.log(boxen(chalk.red.italic(result.message), { title: 'Комментарий Деда', padding: 1, borderStyle: 'round', borderColor: 'red' }));
+    }
+    await sleep(1500);
+    return false;
+  }
+}
+
+function showHint() {
+    const hint = game.getHint();
+    console.log(boxen(chalk.italic(hint), { title: 'Подсказка от Деда', padding: 1, borderStyle: 'round', borderColor: 'yellow' }));
+}
+
+function showHelp() {
+    const helpText = `
+${chalk.bold.yellow('Добро пожаловать в "Кибер-закалку"!')}
+
+Это интерактивный курс для изучения командной строки Bash.
+
+${chalk.bold('Как играть:')}
+1. Выберите ${chalk.green('"Показать текущее задание"')} из меню, чтобы получить задачу от Деда.
+2. Выполните задание, вводя команды прямо в вашем терминале.
+3. Выберите ${chalk.green('"Проверить решение"')}, чтобы Дед оценил вашу работу.
+4. Если застряли, выберите ${chalk.green('"Получить подсказку"')}.
+
+Удачи, боец!
+`;
+    console.log(boxen(helpText, { padding: 1, borderStyle: 'double', borderColor: 'green' }));
+}
+
+async function mainMenu() {
+  try {
+    displayProgress(game.levelManifest, game.state.completedLevels);
+
+    if (!process.stdout.isTTY) {
+      console.log(chalk.yellow('Неинтерактивный терминал. Показываю текущее задание.'));
+      return 'task';
+    }
+
+    const { action } = await inquirer.prompt({
+      type: 'list',
+      name: 'action',
+      message: chalk.yellow('Что будем делать, боец?'),
+      choices: [
+        { name: 'Показать текущее задание', value: 'task' },
+        { name: 'Проверить решение', value: 'check' },
+        { name: 'Получить подсказку', value: 'hint' },
+        new inquirer.Separator(),
+        { name: 'Помощь', value: 'help' },
+        { name: 'Сбросить прогресс и начать сначала', value: 'reset' },
+        { name: 'Выйти из игры', value: 'exit' },
+      ],
+    });
+    return action;
+  } catch (error) {
+    console.log(chalk.red('Ошибка интерактивного меню. Попробуйте запустить игру в стандартном терминале. Выход.'));
+    return 'exit';
+  }
+}
+
+async function pressEnterToContinue() {
+    console.log(''); // Добавляем пустую строку для отступа
+    if (!process.stdout.isTTY) {
+        console.log(chalk.dim('...'));
+        return;
+    }
+    await inquirer.prompt({
+        type: 'input',
+        name: 'key',
+        message: chalk.dim('Нажмите Enter, чтобы продолжить...'),
+    });
+}
+
+async function gameLoop() {
+  displayWelcome();
+  await sleep(2000);
+
+  if (!process.stdout.isTTY) {
+    console.log(chalk.yellow('Обнаружен неинтерактивный терминал.'));
+    console.log(chalk.cyan('Показываю текущее задание и выхожу.'));
+    await showTask();
+    console.log(gradient.pastel('\nДо встречи, боец!'));
+    return;
+  }
+  
+  let running = true;
+  while (running) {
+    console.clear();
+    const action = await mainMenu();
+    console.clear();
+
+    switch (action) {
+      case 'task':
+        await showTask();
+        await pressEnterToContinue();
+        break;
+      case 'check':
+        const wasCorrect = await handleCheck();
+        if (wasCorrect) {
+            console.clear();
+            await showTask();
+            await pressEnterToContinue();
+        }
+        break;
+      case 'hint':
+        showHint();
+        await pressEnterToContinue();
+        break;
+      case 'help':
+        showHelp();
+        await pressEnterToContinue();
+        break;
+      case 'reset':
+        const { confirm } = await inquirer.prompt({
+            type: 'confirm',
+            name: 'confirm',
+            message: chalk.red.bold('Ты уверен, что хочешь сбросить весь прогресс? Это действие необратимо!'),
+            default: false
+        });
+        if (confirm) {
+            game.reset();
+            console.log(chalk.yellow('Прогресс сброшен. Начинаем с чистого листа.'));
+        }
+        await sleep(1500);
+        break;
+      case 'exit':
+        running = false;
+        break;
+    }
+  }
+  console.log(gradient.pastel('До встречи, боец!'));
+}
+
+gameLoop();
