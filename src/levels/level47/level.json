@@ -1,27 +1,31 @@
 {
-    "title": "Команда `df`",
-    "task": "### Дедовский Ликбез\n\nМесто на диске — не резиновое. Команда `df` (disk free) показывает, сколько места осталось на твоих разделах. Это, блядь, как заглянуть в бензобак.\n\nПросто `df` выдаст инфу в непонятных блоках. Чтобы было по-человечески, используй ключ `-h` (human-readable):\n\n`df -h`\n\nТы увидишь таблицу: какой раздел (`Filesystem`), сколько всего места (`Size`), сколько занято (`Used`), сколько свободно (`Avail`) и процент занятого (`Use%`).\n\nЭто одна из первых команд, которую запускает любой админ, когда на сервере начинаются странные проблемы.\n\n### Твоя Задача\n\n**Выполни `df -h` и сохрани результат в файл `disk_space.txt`**.",
-    "hint": "`df -h > disk_space.txt`",
+    "title": "Атака на юзеров: XSS",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "disk_space.txt"
+                "path": "xss_generator.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "malicious_link.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "command_succeeds",
             "args": {
-                "path": "disk_space.txt"
+                "command": "node xss_generator.js > malicious_link.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "disk_space.txt",
-                "content": "Filesystem"
+                "path": "malicious_link.txt",
+                "content": "https://vulnerable-site.com/search?query=%3Cscript%3Ealert%28%27HACKED%21%27%29%3C/script%3E"
             }
         }
     ]

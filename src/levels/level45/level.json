@@ -1,27 +1,31 @@
 {
-    "title": "Команда `ps`",
-    "task": "### Дедовский Ликбез\n\nТвой комп — это, блядь, не монолит. В нём постоянно крутится дохуя разных программ: от системных демонов до твоего браузера. Каждая такая программа — это **процесс**. Команда `ps` (process status) показывает, что сейчас запущено.\n\n*   `ps` — покажет только процессы, запущенные в твоём текущем терминале. Скучно.\n*   `ps aux` — покажет **все**, сука, процессы в системе. `a` — все процессы, `u` — с инфой о пользователе, `x` — включая процессы без терминала.\n\nВывод `ps aux` — это огромная таблица. Главные колонки:\n*   `USER` — кто запустил.\n*   `PID` — Process ID. Уникальный номер процесса.\n*   `%CPU`, `%MEM` — сколько жрёт процессора и памяти.\n*   `COMMAND` — сама команда.\n\n### Твоя Задача\n\n**Выполни `ps aux`, найди в этом списке все процессы, связанные с `bash`, и сохрани результат в файл `bash_processes.txt`**.",
-    "hint": "Используй конвейер: `ps aux | grep 'bash'`.",
+    "title": "Угон сессии: Куки",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "bash_processes.txt"
+                "path": "client.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "output.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "command_succeeds",
             "args": {
-                "path": "bash_processes.txt"
+                "command": "node client.js > output.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "bash_processes.txt",
-                "content": "bash"
+                "path": "output.txt",
+                "content": "Welcome, agent"
             }
         }
     ]

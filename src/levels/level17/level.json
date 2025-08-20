@@ -1,32 +1,26 @@
 {
-    "title": "Команда `chmod`",
-    "task": "### Дедовский Ликбез\n\nВ Linux-мире у каждого файла есть права доступа. Они определяют, кто и что может с ним делать: читать (`r`), записывать (`w`) или выполнять (`x`).\n\nКоманда `chmod` (change mode) меняет эти права. Это, блядь, твой пропускной режим.\n\nСамый простой способ — использовать цифры:\n*   `4` — читать (r)\n*   `2` — записывать (w)\n*   `1` — выполнять (x)\n\nСкладывая их, ты получаешь нужную комбинацию. Например, `7` (4+2+1) — это `rwx`, полный доступ. `6` (4+2) — `rw-`, читать и писать. `5` (4+1) — `r-x`, читать и выполнять.\n\nТри цифры — для владельца, группы и всех остальных. `chmod 755 my_script.sh` — самая частая команда для скриптов. Владелец может всё (`7`), остальные — только читать и выполнять (`5`).\n\n### Твоя Задача\n\nЯ создал для тебя скрипт `my_script.sh`. Но он пока бесполезен, потому что у него нет прав на выполнение.\n\n**Сделай файл `my_script.sh` исполняемым для всех**. Права должны быть `755`.",
-    "hint": "`chmod 755 my_script.sh`",
-    "setup": [
-        {
-            "action": "create_file",
-            "args": {
-                "path": "my_script.sh",
-                "content": "#!/bin/bash\necho 'Скрипт работает!'"
-            }
-        }
-    ],
+    "title": "Качаем сайты: wget",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "my_script.sh"
+                "path": "local_copy.html"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_matches_regex",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "my_script.sh",
-                "regex": "-rwxr-xr-x"
-            },
-            "message": "Права доступа неверные. Проверь вывод `ls -l my_script.sh`."
+                "path": "local_copy.html"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "local_copy.html",
+                "content": "Example Domain"
+            }
         }
     ]
 }

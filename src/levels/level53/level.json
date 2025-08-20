@@ -1,0 +1,13 @@
+{
+    "title": "Сетевой перехват для самых маленьких",
+    "hint": "Тебе нужно 'слушать' трафик на loopback-интерфейсе ('lo') и искать в нём что-то похожее на пароль.",
+    "hint2": "tcpdump -i lo -A | grep 'password'",
+    "validation": [
+        {
+            "validator": "command_succeeds",
+            "args": {
+                "command": "echo 'password123' | nc localhost 1337 & sleep 1 && tcpdump -i lo -A -c 1 'port 1337' | grep 'password123'"
+            }
+        }
+    ]
+}

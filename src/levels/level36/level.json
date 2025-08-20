@@ -1,28 +1,46 @@
 {
-    "title": "Простой Telegram-бот",
-    "task": "### Дедовский Ликбез\n\nAPI можно не только потреблять, но и использовать для создания ботов. Telegram — одна из самых простых площадок для этого.\n\nБиблиотека `node-telegram-bot-api` делает всю грязную работу за тебя.\n\n**Установка:** `npm install node-telegram-bot-api`\n\n**Пример:**\n```javascript\nconst TelegramBot = require('node-telegram-bot-api');\nconst token = 'ТВОЙ_ТОКЕН'; // Получи у @BotFather\nconst bot = new TelegramBot(token, { polling: true });\n\nbot.on('message', (msg) => {\n  const chatId = msg.chat.id;\n  bot.sendMessage(chatId, 'Привет, заебал!');\n});\n```\n\nЭтот бот будет отвечать на любое сообщение. `polling: true` — самый простой способ получать обновления.\n\n### Твоя Задача\n\n**Напиши скрипт `echo_bot.js`, который создаёт Telegram-бота.**\n\nБот должен работать как эхо: на любое полученное сообщение он должен отвечать тем же самым текстом.\n\n**Важно:** Токен — это секрет. Никогда, блядь, не храни его в коде. Для этого используют переменные окружения. Считай токен из `process.env.TELEGRAM_TOKEN`.\n\nЯ не буду запускать твоего бота, я просто проверю код на правильность.",
-    "hint": "Внутри `bot.on('message', ...)` используй `msg.text` и `bot.sendMessage(chatId, msg.text)`.",
+    "title": "Запуск скриптов Node.js",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "secret.txt",
+                "content": "Node.js - eto sila, a Bash - mogila. Ded."
+            }
+        }
+    ],
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "echo_bot.js"
+                "path": "secret.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "reader.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "output.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_contains",
+            "validator": "command_succeeds",
             "args": {
-                "path": "echo_bot.js",
-                "content": "process.env.TELEGRAM_TOKEN"
+                "command": "node reader.js > output.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "echo_bot.js",
-                "content": "msg.text"
+                "path": "output.txt",
+                "content": "Node.js - eto sila"
             }
         }
     ]

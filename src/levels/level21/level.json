@@ -1,19 +1,25 @@
 {
-    "title": "Команда `whois`",
-    "task": "### Дедовский Ликбез\n\nКаждый домен в интернете на кого-то зарегистрирован. `whois` — это команда, которая лезет в публичную базу данных и показывает всю инфу о владельце домена: имя, организация, контакты, дата регистрации, до какого числа проплачен. Это, блядь, как пробить номер машины.\n\n`whois example.com`\n\nВывалит тебе всю подноготную. Иногда контакты скрыты за сервисом защиты приватности, но часто можно найти много интересного: на кого оформлен сайт, какой регистратор использовался, на каких DNS-серверах висит.\n\nЭто один из первых шагов в любой разведке. Собрать как можно больше инфы о цели.\n\n### Твоя Задача\n\nУзнай, на кого зарегистрирован домен `google.com`.\n\n**Сохрани результат работы `whois` в файл `google_whois.txt`**.",
-    "hint": "`whois google.com > google_whois.txt`",
+    "title": "Быстрая разведка: host",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "ip_address.txt"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "google_whois.txt"
+                "path": "ip_address.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "google_whois.txt",
-                "content": "MarkMonitor Inc."
+                "path": "ip_address.txt",
+                "content": "142.250.186.227"
             }
         }
     ]

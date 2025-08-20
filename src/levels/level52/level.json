@@ -1,0 +1,36 @@
+{
+    "title": "Охота на приватные ключи",
+    "setup": [
+        {
+            "action": "create_directory",
+            "args": {
+                "path": "home/someuser/.ssh"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "home/someuser/.ssh/id_rsa",
+                "content": "SECRET_KEY_CONTENT"
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_directory",
+            "args": {
+                "path": "home"
+            }
+        }
+    ],
+    "hint": "Ищи директории с именем .ssh. В них часто лежат ключи.",
+    "hint2": "find . -name 'id_rsa'",
+    "validation": [
+        {
+            "validator": "command_succeeds",
+            "args": {
+                "command": "grep 'SECRET_KEY_CONTENT' $(find . -name 'id_rsa')"
+            }
+        }
+    ]
+}

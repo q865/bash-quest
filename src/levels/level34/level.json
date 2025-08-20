@@ -1,22 +1,30 @@
 {
-    "title": "Node.js: `cheerio`",
-    "task": "### Дедовский Ликбез\n\nПарсить HTML с помощью регулярок — это как гланды через жопу удалять. Можно, но пиздец как больно и неправильно. Когда тебе нужно вытащить инфу из HTML-страницы, используй `cheerio`.\n\n`cheerio` — это, по сути, jQuery для сервера. Он берёт HTML-код, строит из него DOM-дерево, и позволяет тебе находить нужные элементы с помощью охуенно удобных CSS-селекторов.\n\n**Установка:** `npm install cheerio`\n\n**Пример:**\n```javascript\nconst cheerio = require('cheerio');\nconst html = '<h1>Привет, Дед!</h1><p class=\"subtitle\">Как дела?</p>';\n\nconst $ = cheerio.load(html);\n\nconst title = $('h1').text();\nconst subtitle = $('.subtitle').text();\n\nconsole.log(title); // 'Привет, Дед!'\nconsole.log(subtitle); // 'Как дела?'\n```\n\n### Твоя Задача\n\n**Напиши Node.js-скрипт `parse_title.js`, который:**\n1.  С помощью `axios` скачивает главную страницу `example.com`.\n2.  С помощью `cheerio` парсит полученный HTML.\n3.  Находит и выводит в консоль текст из тега `<h1>`.",
-    "hint": "Сначала `axios.get`, потом `cheerio.load(response.data)`, потом `$('h1').text()`.",
+    "title": "Управление процессами",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "parse_title.js"
+                "path": "start.sh"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "stop.sh"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "server.pid"
             }
         }
     ],
     "validation": [
         {
-            "validator": "script_produces_output",
+            "validator": "command_succeeds",
             "args": {
-                "path": "parse_title.js",
-                "output": "Example Domain",
-                "command": "node parse_title.js"
+                "command": "bash start.sh && ps -p $(cat server.pid) > /dev/null && bash stop.sh && ! ps -p $(cat server.pid) > /dev/null"
             }
         }
     ]

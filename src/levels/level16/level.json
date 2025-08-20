@@ -1,41 +1,32 @@
 {
-    "title": "Команда `cp`",
-    "task": "### Дедовский Ликбез\n\nКоманда `cp` (copy) — это твой ксерокс. Она создаёт точную копию файла или папки.\n\n**Скопировать файл:**\n`cp source_file.txt destination_file.txt`\n\n**Скопировать файл в папку:**\n`cp my_file.txt trainee_stuff/`\n(создаст копию `my_file.txt` внутри `trainee_stuff`)\n\nЧтобы скопировать папку со всем её содержимым, нужен уже знакомый тебе ключ `-r` (recursive):\n\n`cp -r source_folder/ destination_folder/`\n\n`cp` — это основа для бэкапов и размножения важных (или не очень) файлов.\n\n### Твоя Задача\n\nУ тебя есть важный файл `my_super_notes.txt`.\n\n**Создай его точную копию с названием `my_super_notes_backup.txt`**.",
-    "hint": "`cp my_super_notes.txt my_super_notes_backup.txt`",
-    "setup": [
-        {
-            "action": "create_file",
-            "args": {
-                "path": "my_super_notes.txt",
-                "content": "Это супер заметки"
-            }
-        }
-    ],
+    "title": "Отправка данных: curl POST",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "my_super_notes.txt"
-            }
-        },
-        {
-            "action": "delete_file",
-            "args": {
-                "path": "my_super_notes_backup.txt"
+                "path": "api_response.json"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "my_super_notes.txt"
+                "path": "api_response.json"
             }
         },
         {
-            "validator": "file_exists",
+            "validator": "file_content_matches",
             "args": {
-                "path": "my_super_notes_backup.txt"
+                "path": "api_response.json",
+                "content": "ded_moroz"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "api_response.json",
+                "content": "secret_agent"
             }
         }
     ]

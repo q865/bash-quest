@@ -1,19 +1,53 @@
 {
-    "title": "Команда `ls -lh`",
-    "task": "### Дедовский Ликбез\n\nВидел размеры файлов в выводе `ls -l`? Какие-то ебучие байты. 1024, 4096... Хуй пойми, много это или мало. Это неудобно.\n\nЧтобы не ебать себе мозг, используй ключ `-h` (human-readable). Он заставляет `ls` показывать размеры в нормальном, человеческом виде: килобайты (K), мегабайты (M), гигабайты (G).\n\n`ls -lh` — вот твоя команда. Ключи можно и нужно комбинировать.\n\nТеперь вместо `13371488` ты увидишь что-то вроде `13M`. Сразу понятно, что к чему.\n\n### Твоя Задача\n\nПолучи детальный список файлов, но с человекочитаемыми размерами.\n\n**Сохрани результат в файл `human_readable_list.txt`**.",
-    "hint": "Комбинируй ключи: `ls -lh`.",
-    "validation": [
+    "title": "Чтение и склеивание файлов",
+    "setup": [
         {
-            "validator": "file_exists",
+            "action": "create_file",
             "args": {
-                "path": "human_readable_list.txt"
+                "path": "part1.txt",
+                "content": "Дед привёз 100 литров самогона."
             }
         },
         {
-            "validator": "file_contains",
+            "action": "create_file",
             "args": {
-                "path": "human_readable_list.txt",
-                "content": "K"
+                "path": "part2.txt",
+                "content": "А утром осталось только 50."
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "part1.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "part2.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "full_story.txt"
+            }
+        }
+    ],
+    "validation": [
+        {
+            "validator": "file_system_entry_exists",
+            "args": {
+                "path": "full_story.txt"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "full_story.txt",
+                "content": "Дед привёз 100 литров самогона.А утром осталось только 50."
             }
         }
     ]

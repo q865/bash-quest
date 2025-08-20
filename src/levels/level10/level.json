@@ -1,13 +1,87 @@
 {
-    "title": "Добавление в файл (`>>`)",
-    "task": "### Дедовский Ликбез\n\nОператор `>` — мудак. Он стирает всё, что было в файле. А если тебе нужно не перезаписать, а просто **добавить** инфу в конец? Для этого есть его старший, более вежливый брат — `>>`.\n\n`echo 'Еще одна строка' >> my_notes.txt`\n\nЭта команда добавит текст 'Еще одна строка' в конец файла `my_notes.txt`, не трогая то, что там уже было. Если файла не было, он его создаст. Удобно, пиздец.\n\nЗапомни, салага:\n*   `>` — перезаписать нахуй.\n*   `>>` — дописать в конец.\n\nНе перепутай, а то проебёшь важные данные, и будешь потом плакать, как сучка.\n\n### Твоя Задача\n\nУ тебя есть файл `my_notes.txt`, который ты создал ранее. Пора в него что-то записать.\n\n**Добавь в конец файла `my_notes.txt` строку \"Дед крутой\".** Используй `echo` и оператор `>>`.",
-    "hint": "`echo 'Твой текст' >> my_notes.txt`",
+    "title": "Потоки и пайпы",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "file1.txt"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "image.jpg"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "another.txt"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "document.pdf"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "last_one.txt"
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "file1.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "image.jpg"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "another.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "document.pdf"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "last_one.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "text_file_count.txt"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_contains",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "trainee_stuff/my_notes.txt",
-                "content": "Дед крутой"
+                "path": "text_file_count.txt"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "text_file_count.txt",
+                "content": "3"
             }
         }
     ]

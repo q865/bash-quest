@@ -1,0 +1,13 @@
+{
+    "title": "Побег из песочницы",
+    "hint": "Тебе нужно создать временную директорию, смонтировать в неё /proc, а потом 'сбежать' с помощью chroot.",
+    "hint2": "mkdir temp; mount -t proc proc temp; chroot temp /bin/bash",
+    "validation": [
+        {
+            "validator": "command_succeeds",
+            "args": {
+                "command": "echo 'Ты выбрался. Молодец.' > /success.txt"
+            }
+        }
+    ]
+}

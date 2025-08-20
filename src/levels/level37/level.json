@@ -1,28 +1,46 @@
 {
-    "title": "Простой веб-сервер",
-    "task": "### Дедовский Ликбез\n\nNode.js родился, блядь, чтобы делать сервера. `express` — это минималистичный и охуенно популярный фреймворк, который делает эту задачу элементарной.\n\n**Установка:** `npm install express`\n\n**Пример:**\n```javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.get('/', (req, res) => {\n  res.send('Hello World!');\n});\n\napp.listen(port, () => {\n  console.log(`Сервер запущен на http://localhost:${port}`);\n});\n```\n\nЭтот код создаёт сервер, который на запрос `GET /` (главная страница) отвечает текстом `Hello World!`.\n\n### Твоя Задача\n\n**Напиши скрипт `server.js`, который запускает веб-сервер на порту 3000.**\n\nСервер должен:\n1.  На запрос `GET /` отвечать `"Welcome to the main page!"`.\n2.  На запрос `GET /ded` отвечать `"Ded is watching you."`.\n\nЯ проверю код, запускать его не буду.",
-    "hint": "Создай два обработчика: `app.get('/', ...)` и `app.get('/ded', ...)`.",
+    "title": "Работа с файлами в Node.js",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "source.txt",
+                "content": "copy me"
+            }
+        }
+    ],
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "server.js"
+                "path": "source.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "destination.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "copier.js"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_contains",
+            "validator": "command_succeeds",
             "args": {
-                "path": "server.js",
-                "content": "express"
+                "command": "node copier.js source.txt destination.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "server.js",
-                "content": "app.get('/ded'"
+                "path": "destination.txt",
+                "content": "copy me"
             }
         }
     ]

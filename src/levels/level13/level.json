@@ -1,42 +1,40 @@
 {
-    "title": "Команда `find`",
-    "task": "### Дедовский Ликбез\n\nКогда файлов становится дохуя, `ls` уже не спасает. Нужен инструмент посерьёзнее. `find` — это твой персональный сыщик. Он может найти файл или папку где угодно, по имени, размеру, дате, чему, блядь, угодно.\n\nСинтаксис у него поначалу кажется ебанутым, но ты привыкай:\n\n`find [где_искать] -name '[что_искать]'`\n\nНапример:\n`find . -name '*.txt'`\n\nЭта команда найдёт **во всех вложенных папках**, начиная с текущей (`.`), все файлы, которые заканчиваются на `.txt`.\n\n`find` — это пиздец какая мощная хуйня. У неё миллион ключей, но для начала запомни `-name`.\n\n### Твоя Задача\n\nВнутри `trainee_stuff` я создал целый лабиринт из папок, а в одной из них спрятал файл `secret.txt`. Мне лень его искать.\n\n**Найди файл `secret.txt` с помощью `find` и сохрани путь к нему в файл `secret_path.txt`**.",
-    "hint": "`find . -name 'secret.txt' > secret_path.txt`",
+    "title": "Парсинг JSON с `jq`",
     "setup": [
-        {
-            "action": "create_directory",
-            "args": {
-                "path": "trainee_stuff/dir1/dir2/dir3"
-            }
-        },
         {
             "action": "create_file",
             "args": {
-                "path": "trainee_stuff/dir1/dir2/dir3/secret.txt",
-                "content": "Дед был здесь"
+                "path": "agents.json",
+                "content": "[{\"name\":\"Ivanov\",\"status\":\"active\",\"codeword\":\"Vodka\"},{\"name\":\"Petrov\",\"status\":\"MIA\",\"codeword\":\"Balalaika\"},{\"name\":\"Sidorov\",\"status\":\"active\",\"codeword\":\"Matryoshka\"}]"
             }
         }
     ],
     "cleanup": [
         {
-            "action": "delete_directory",
+            "action": "delete_file",
             "args": {
-                "path": "trainee_stuff/dir1"
+                "path": "agents.json"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "codeword.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "secret_path.txt"
+                "path": "codeword.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "secret_path.txt",
-                "content": "secret.txt"
+                "path": "codeword.txt",
+                "content": "Balalaika"
             }
         }
     ]

@@ -1,21 +1,19 @@
 {
-    "title": "Команда `scp`",
-    "task": "### Дедовский Ликбез\n\nРаз уж ты умеешь подключаться к удалённому серверу по `ssh`, надо научиться и файлы туда-сюда кидать. Для этого есть `scp` (Secure Copy). Он работает почти как `cp`, но умеет, сука, копировать по сети.\n\n**Синтаксис:**\n\n**С локальной машины на удалённую:**\n`scp /path/to/local/file.txt user@hostname:/path/to/remote/destination/`\n\n**С удалённой на локальную:**\n`scp user@hostname:/path/to/remote/file.txt /path/to/local/destination/`\n\nВсё просто, блядь. `источник` `назначение`. Только если файл удалённый, указываешь `user@host:`.\n\n### Твоя Задача\n\nИ снова теория.\n\n**Создай файл `scp_command.txt` и напиши в нём команду, которая копирует локальный файл `~/backup.tar.gz` на сервер `myserver.com` в домашнюю директорию пользователя `admin`**.",
-    "hint": "Домашняя директория на сервере обычно обозначается как `~/`.",
+    "title": "Свой веб-сервер: Express",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "scp_command.txt"
+                "path": "api_server.js"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_contains",
+            "validator": "script_produces_output",
             "args": {
-                "path": "scp_command.txt",
-                "content": "scp ~/backup.tar.gz admin@myserver.com:~/"
+                "script": "node api_server.js & sleep 1 && curl -s http://localhost:1337/api/v1/status && kill $!",
+                "output": "{\"status\":\"ok\"}"
             }
         }
     ]

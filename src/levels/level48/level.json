@@ -1,20 +1,46 @@
 {
-    "title": "Команда `du`",
-    "task": "### Дедовский Ликбез\n\n`df` показывает общее место по разделам. А если тебе нужно узнать, какая конкретно папка, сука, сожрала всё место? Для этого есть `du` (disk usage).\n\n*   `du` — покажет размер каждой подпапки. Не очень удобно.\n*   `du -sh *` — вот это заебись. `s` (summarize) — показать только итог, `h` (human-readable) — в человеческом виде. `*` — для всех файлов и папок в текущей директории.\n\nЧасто `du` комбинируют с `sort`, чтобы найти самого жирного ублюдка:\n\n`du -sh * | sort -rh`\n\n`sort -r` (reverse) отсортирует по убыванию, `-h` (human-numeric-sort) — будет правильно сортировать размеры (G > M > K).\n\n### Твоя Задача\n\n**Найди 5 самых больших файлов/папок в своей домашней директории (`~`) и сохрани список в файл `top5_biggest.txt`**.",
-    "hint": "`du -sh ~/* | sort -rh | head -n 5 > top5_biggest.txt`\nКоманда `head -n 5` оставляет только первые 5 строк вывода.",
+    "title": "Подбор паролей: Брутфорс",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "passwords.txt",
+                "content": "12345\nqwerty\npassword\nsecret123"
+            }
+        }
+    ],
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "top5_biggest.txt"
+                "path": "passwords.txt"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "bruteforcer.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "found_password.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "command_succeeds",
             "args": {
-                "path": "top5_biggest.txt"
+                "command": "node bruteforcer.js > found_password.txt"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "found_password.txt",
+                "content": "password"
             }
         }
     ]

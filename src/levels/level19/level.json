@@ -1,19 +1,25 @@
 {
-    "title": "Команда `jq`",
-    "task": "### Дедовский Ликбез\n\nВ современном интернете почти все данные передаются в формате JSON. Это просто, блядь, текстовый формат для описания объектов. Но читать его в сыром виде — то ещё удовольствие.\n\n`jq` — это `sed` для JSON. Мощнейший инструмент для парсинга, фильтрации и форматирования JSON прямо в консоли.\n\nПредставь, что `curl` вернул тебе такой JSON:\n`{\"name\": \"Ded\", \"status\": \"pissed off\"}`\n\nЧтобы красиво его отформатировать, скорми его `jq`:\n`curl ... | jq '.'`\n\nТочка (`.`) в `jq` означает \"весь объект\". `jq` возьмёт сырой JSON и выведет его с отступами и цветами. А чтобы вытащить только одно поле, используй `.имя_поля`:\n\n`curl ... | jq '.status'`\n\nВывод будет: `\"pissed off\"`\n\n### Твоя Задача\n\nЯ нашёл для тебя публичный API, который возвращает инфу о случайном коте: `https://api.thecatapi.com/v1/images/search`.\n\n**Используй `curl` и `jq`, чтобы вытащить из ответа API только поле `url` и сохрани результат в файл `cat_url.txt`**.",
-    "hint": "`curl -s 'https://api.thecatapi.com/v1/images/search' | jq '.[0].url' > cat_url.txt`\nКлюч `-s` для `curl` убирает лишний мусор из вывода.",
+    "title": "Разведка с `whois`",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "registrar.txt"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "cat_url.txt"
+                "path": "registrar.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "cat_url.txt",
-                "content": "https"
+                "path": "registrar.txt",
+                "content": "MarkMonitor Inc."
             }
         }
     ]

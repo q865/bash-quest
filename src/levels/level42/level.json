@@ -1,48 +1,30 @@
 {
-    "title": "Команда `tar`",
-    "task": "### Дедовский Ликбез\n\n`tar` — это, блядь, архиватор. Он собирает кучу файлов и папок в один большой файл (`.tar`), чтобы его было удобно передавать или хранить. Сам по себе `tar` не сжимает, он просто объединяет.\n\nЧтобы ещё и сжать, его используют вместе с утилитами вроде `gzip` или `bzip2`. Для этого есть специальные ключи.\n\n**Основные команды:**\n*   `tar -cvf archive.tar /path/to/dir` — **c**reate (создать), **v**erbose (показывать процесс), **f**ile (в файл). Создаст архив `archive.tar` из папки `/path/to/dir`.\n*   `tar -xvf archive.tar` — **x**tract (извлечь). Распакует архив.\n*   `tar -czvf archive.tar.gz /path/to/dir` — `z` добавляет сжатие `gzip`.\n*   `tar -cjvf archive.tar.bz2 /path/to/dir` — `j` добавляет сжатие `bzip2`.\n\n### Твоя Задача\n\n**Создай директорию `stuff_to_archive`, положи в неё пару файлов. Затем создай `gzip`-сжатый архив `my_archive.tar.gz` из этой директории.**",
-    "hint": "Используй `tar -czvf my_archive.tar.gz stuff_to_archive/`.",
-    "setup": [
-        {
-            "action": "create_directory",
-            "args": {
-                "path": "stuff_to_archive"
-            }
-        },
-        {
-            "action": "create_file",
-            "args": {
-                "path": "stuff_to_archive/file1.txt",
-                "content": "one"
-            }
-        },
-        {
-            "action": "create_file",
-            "args": {
-                "path": "stuff_to_archive/file2.txt",
-                "content": "two"
-            }
-        }
-    ],
+    "title": "Автоматизация браузера: Puppeteer",
     "cleanup": [
         {
-            "action": "delete_directory",
+            "action": "delete_file",
             "args": {
-                "path": "stuff_to_archive"
+                "path": "screenshot.js"
             }
         },
         {
             "action": "delete_file",
             "args": {
-                "path": "my_archive.tar.gz"
+                "path": "page.png"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "command_succeeds",
             "args": {
-                "path": "my_archive.tar.gz"
+                "command": "node screenshot.js"
+            }
+        },
+        {
+            "validator": "file_system_entry_exists",
+            "args": {
+                "path": "page.png"
             }
         }
     ]

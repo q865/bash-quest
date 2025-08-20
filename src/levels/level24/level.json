@@ -1,34 +1,10 @@
 {
-    "title": "Bash-скрипты",
-    "task": "### Дедовский Ликбез\n\nЗаебался вводить одни и те же команды по сто раз? Добро пожаловать в автоматизацию. Bash-скрипт — это просто, блядь, текстовый файл со списком команд. Ты пишешь их один раз, а потом запускаешь одной командой, и они выполняются по порядку.\n\n**Как создать:**\n1.  Создай файл, например, `my_script.sh`.\n2.  Первой строкой **всегда** пиши `#!/bin/bash`. Эта хуйня называется \"shebang\" и говорит системе, что это bash-скрипт.\n3.  Дальше пиши команды, каждую с новой строки (`ls -l`, `echo 'Done'`, и т.д.).\n4.  Сделай файл исполняемым: `chmod 755 my_script.sh`.\n5.  Запускай: `./my_script.sh` (точка-слэш означает \"запустить файл из текущей директории\").\n\n### Твоя Задача\n\nСоздай скрипт `pinger.sh`.\n\nЭтот скрипт должен делать две вещи:\n1.  Выводить на экран текст \"Pinging google.com...\"\n2.  Пинговать `google.com` 4 раза.\n\n**Не забудь сделать его исполняемым!** Я проверю, что скрипт существует, исполняемый и делает то, что нужно.",
-    "hint": "Создай файл, напиши `#!/bin/bash`, `echo '...'`, `ping -c 4 google.com`. Сохрани. Сделай `chmod 755`.",
-    "cleanup": [
-        {
-            "action": "delete_file",
-            "args": {
-                "path": "pinger.sh"
-            }
-        }
-    ],
+    "title": "Комбинация `curl` и `grep`",
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "command_succeeds",
             "args": {
-                "path": "pinger.sh"
-            }
-        },
-        {
-            "validator": "file_matches_regex",
-            "args": {
-                "path": "pinger.sh",
-                "regex": "-rwxr-xr-x"
-            }
-        },
-        {
-            "validator": "script_produces_output",
-            "args": {
-                "path": "pinger.sh",
-                "output": "PING google.com"
+                "command": "curl -s https://example.com | grep -q 'IANA'"
             }
         }
     ]

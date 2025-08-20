@@ -1,18 +1,16 @@
 {
-    "title": "Puppeteer: headless-браузер",
-    "task": "### Дедовский Ликбез\n\nИногда парсить HTML-код недостаточно. Современные сайты — это, блядь, гора JavaScript, который выполняется уже в браузере. `curl` или `axios` увидят только первоначальный HTML, без динамического контента.\n\n`puppeteer` — это библиотека от Google, которая позволяет управлять настоящим Chrome-браузером (в headless-режиме, без GUI) прямо из Node.js. Ты можешь открывать страницы, кликать на кнопки, заполнять формы, делать скриншоты — всё, что делает обычный пользователь.\n\n**Установка:** `npm install puppeteer`\n\n**Пример (сделать скриншот):**\n```javascript\nconst puppeteer = require('puppeteer');\n\n(async () => {\n  const browser = await puppeteer.launch();\n  const page = await browser.newPage();\n  await page.goto('https://example.com');\n  await page.screenshot({ path: 'example.png' });\n  await browser.close();\n})();\n```\n\n### Твоя Задача\n\n**Напиши скрипт `screenshoter.js`, который использует `puppeteer`, чтобы сделать скриншот главной страницы `google.com` и сохранить его в файл `google.png`**.",
-    "hint": "Просто скопируй пример и поменяй URL и имя файла.",
+    "title": "Обработка HTML с `cheerio`",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "screenshoter.js"
+                "path": "scraper.js"
             }
         },
         {
             "action": "delete_file",
             "args": {
-                "path": "google.png"
+                "path": "title.txt"
             }
         }
     ],
@@ -20,13 +18,14 @@
         {
             "validator": "command_succeeds",
             "args": {
-                "command": "node screenshoter.js"
+                "command": "node scraper.js > title.txt"
             }
         },
         {
-            "validator": "file_exists",
+            "validator": "file_content_matches",
             "args": {
-                "path": "google.png"
+                "path": "title.txt",
+                "content": "Example Domain"
             }
         }
     ]

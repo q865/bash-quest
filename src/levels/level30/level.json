@@ -1,22 +1,30 @@
 {
-    "title": "Node.js: Введение",
-    "task": "### Дедовский Ликбез\n\nBash — это сила. Но иногда его возможностей, сука, не хватает. Когда нужна сложная логика, работа с сетью навороченная, или просто, блядь, нормальный язык программирования, на сцену выходит Node.js.\n\nNode.js — это JavaScript, который может работать не в браузере, а прямо в твоём терминале. Он может делать всё то же, что и Bash (работать с файлами, запускать процессы), но с мощью и гибкостью JS.\n\n**Как запустить:**\n1.  Создай файл, например, `hello.js`.\n2.  Напиши в нём `console.log('Hello from Node.js!');`\n3.  Запусти: `node hello.js`\n\nВсё, блядь. Ты только что выполнил JS-код на сервере.\n\n### Твоя Задача\n\n**Создай файл `app.js` и напиши в нём код, который выводит в консоль строку \"Node.js is awesome!\".**\n\nЯ проверю, что твой скрипт работает как надо.",
-    "hint": "Одна строка: `console.log('Node.js is awesome!');`",
+    "title": "Планировщик `cron`",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "app.js"
+                "path": "heartbeat.log"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "log.sh"
             }
         }
     ],
     "validation": [
         {
-            "validator": "script_produces_output",
+            "validator": "command_succeeds",
             "args": {
-                "path": "app.js",
-                "output": "Node.js is awesome!",
-                "command": "node app.js"
+                "command": "bash log.sh"
+            }
+        },
+        {
+            "validator": "file_system_entry_exists",
+            "args": {
+                "path": "heartbeat.log"
             }
         }
     ]

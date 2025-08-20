@@ -1,79 +1,88 @@
 {
-  "blocks": [
-    {
-      "title": "Основы Bash",
-      "levels": [
-        { "id": 1, "title": "Команда `ls`", "path": "src/levels/level1" },
-        { "id": 2, "title": "Команда `ls -a`", "path": "src/levels/level2" },
-        { "id": 3, "title": "Создание директории", "path": "src/levels/level3" },
-        { "id": 4, "title": "Создание файлов", "path": "src/levels/level4" },
-        { "id": 5, "title": "Чтение файлов", "path": "src/levels/level5" },
-        { "id": 6, "title": "Перемещение и переименование", "path": "src/levels/level6" },
-        { "id": 7, "title": "Копирование файлов", "path": "src/levels/level7" },
-        { "id": 8, "title": "Удаление файлов и директорий", "path": "src/levels/level8" },
-        { "id": 9, "title": "Поиск с `grep`", "path": "src/levels/level9" },
-        { "id": 10, "title": "Потоки и пайпы", "path": "src/levels/level10" }
-      ]
-    },
-    {
-      "title": "Интернет-диверсант",
-      "levels": [
-        { "id": 11, "title": "Знакомство с `curl`", "path": "src/levels/level11" },
-        { "id": 12, "title": "Заголовки в `curl`", "path": "src/levels/level12" },
-        { "id": 13, "title": "Парсинг JSON с `jq`", "path": "src/levels/level13" },
-        { "id": 14, "title": "Сканирование портов с `nmap`", "path": "src/levels/level14" },
-        { "id": 15, "title": "Сетевая разведка с `dig`", "path": "src/levels/level15" },
-        { "id": 16, "title": "Отправка данных: curl POST", "path": "src/levels/level16" },
-        { "id": 17, "title": "Качаем сайты: wget", "path": "src/levels/level17" },
-        { "id": 18, "title": "Выдираем ссылки", "path": "src/levels/level18" },
-        { "id": 19, "title": "Удалённый доступ: ssh", "path": "src/levels/level19" },
-        { "id": 20, "title": "Копирование по сети: scp", "path": "src/levels/level20" },
-        { "id": 21, "title": "Разведка с `whois`", "path": "src/levels/level21" },
-        { "id": 22, "title": "Работа с API", "path": "src/levels/level22" },
-        { "id": 23, "title": "Скачивание файлов с `curl -O`", "path": "src/levels/level23" },
-        { "id": 24, "title": "Комбинация `curl` и `grep`", "path": "src/levels/level24" },
-        { "id": 25, "title": "Диплом: Простой рекон", "path": "src/levels/level25" }
-      ]
-    },
-    {
-      "title": "Автоматизация",
-      "levels": [
-        { "id": 26, "title": "Первый Bash-скрипт", "path": "src/levels/level26" },
-        { "id": 27, "title": "Переменные и аргументы", "path": "src/levels/level27" },
-        { "id": 28, "title": "Цикл `for`", "path": "src/levels/level28" },
-        { "id": 29, "title": "Условия `if`", "path": "src/levels/level29" },
-        { "id": 30, "title": "Планировщик `cron`", "path": "src/levels/level30" },
-        { "id": 31, "title": "Замена текста: sed", "path": "src/levels/level31" },
-        { "id": 32, "title": "Анализ логов: awk", "path": "src/levels/level32" },
-        { "id": 33, "title": "Функции в Bash", "path": "src/levels/level33" },
-        { "id": 34, "title": "Управление процессами", "path": "src/levels/level34" },
-        { "id": 35, "title": "Диплом: Анализатор логов", "path": "src/levels/level35" }
-      ]
-    },
-    {
-      "title": "Node.js",
-      "levels": [
-        { "id": 36, "title": "Запуск скриптов", "path": "src/levels/level36" },
-        { "id": 37, "title": "Работа с файлами в Node.js", "path": "src/levels/level37" },
-        { "id": 38, "title": "Парсинг сайтов с `axios`", "path": "src/levels/level38" },
-        { "id": 39, "title": "Обработка HTML с `cheerio`", "path": "src/levels/level39" },
-        { "id": 40, "title": "Создание Telegram-бота", "path": "src/levels/level40" },
-        { "id": 41, "title": "Продвинутые CLI: process.argv", "path": "src/levels/level41" },
-        { "id": 42, "title": "Автоматизация браузера: Puppeteer", "path": "src/levels/level42" },
-        { "id": 43, "title": "Puppeteer: Скриншот", "path": "src/levels/level43" },
-        { "id": 44, "title": "Свой веб-сервер: Express", "path": "src/levels/level44" }
-      ]
-    },
-    {
-      "title": "Основы взлома",
-      "levels": [
-        { "id": 45, "title": "Угон сессии: Куки", "path": "src/levels/level45" },
-        { "id": 46, "title": "Взлом баз: SQL-инъекции", "path": "src/levels/level46" },
-        { "id": 47, "title": "Атака на юзеров: XSS", "path": "src/levels/level47" },
-        { "id": 48, "title": "Подбор паролей: Брутфорс", "path": "src/levels/level48" },
-        { "id": 49, "title": "Взлом людей: Социальная инженерия", "path": "src/levels/level49" },
-        { "id": 50, "title": "Финальное слово Деда", "path": "src/levels/level50" }
-      ]
-    }
-  ]
+    "blocks": [
+        {
+            "title": "Основы Bash",
+            "levels": [
+                { "id": 1, "title": "Команда `ls`", "path": "src/levels/level1" },
+                { "id": 2, "title": "Команда `ls -a`", "path": "src/levels/level2" },
+                { "id": 3, "title": "Создание директории", "path": "src/levels/level3" },
+                { "id": 4, "title": "Создание файлов", "path": "src/levels/level4" },
+                { "id": 5, "title": "Чтение файлов", "path": "src/levels/level5" },
+                { "id": 6, "title": "Перемещение и переименование", "path": "src/levels/level6" },
+                { "id": 7, "title": "Копирование файлов", "path": "src/levels/level7" },
+                { "id": 8, "title": "Удаление файлов и директорий", "path": "src/levels/level8" },
+                { "id": 9, "title": "Поиск с `grep`", "path": "src/levels/level9" },
+                { "id": 10, "title": "Потоки и пайпы", "path": "src/levels/level10" }
+            ]
+        },
+        {
+            "title": "Интернет-диверсант",
+            "levels": [
+                { "id": 11, "title": "Знакомство с `curl`", "path": "src/levels/level11" },
+                { "id": 12, "title": "Заголовки в `curl`", "path": "src/levels/level12" },
+                { "id": 13, "title": "Парсинг JSON с `jq`", "path": "src/levels/level13" },
+                { "id": 14, "title": "Сканирование портов с `nmap`", "path": "src/levels/level14" },
+                { "id": 15, "title": "Сетевая разведка с `dig`", "path": "src/levels/level15" },
+                { "id": 16, "title": "Отправка данных: curl POST", "path": "src/levels/level16" },
+                { "id": 17, "title": "Качаем сайты: wget", "path": "src/levels/level17" },
+                { "id": 18, "title": "Выдираем ссылки", "path": "src/levels/level18" },
+                { "id": 19, "title": "Удалённый доступ: ssh", "path": "src/levels/level19" },
+                { "id": 20, "title": "Копирование по сети: scp", "path": "src/levels/level20" },
+                { "id": 21, "title": "Разведка с `whois`", "path": "src/levels/level21" },
+                { "id": 22, "title": "Работа с API", "path": "src/levels/level22" },
+                { "id": 23, "title": "Скачивание файлов с `curl -O`", "path": "src/levels/level23" },
+                { "id": 24, "title": "Комбинация `curl` и `grep`", "path": "src/levels/level24" },
+                { "id": 25, "title": "Диплом: Простой рекон", "path": "src/levels/level25" }
+            ]
+        },
+        {
+            "title": "Автоматизация",
+            "levels": [
+                { "id": 26, "title": "Первый Bash-скрипт", "path": "src/levels/level26" },
+                { "id": 27, "title": "Переменные и аргументы", "path": "src/levels/level27" },
+                { "id": 28, "title": "Цикл `for`", "path": "src/levels/level28" },
+                { "id": 29, "title": "Условия `if`", "path": "src/levels/level29" },
+                { "id": 30, "title": "Планировщик `cron`", "path": "src/levels/level30" },
+                { "id": 31, "title": "Замена текста: sed", "path": "src/levels/level31" },
+                { "id": 32, "title": "Анализ логов: awk", "path": "src/levels/level32" },
+                { "id": 33, "title": "Функции в Bash", "path": "src/levels/level33" },
+                { "id": 34, "title": "Управление процессами", "path": "src/levels/level34" },
+                { "id": 35, "title": "Диплом: Анализатор логов", "path": "src/levels/level35" }
+            ]
+        },
+        {
+            "title": "Node.js",
+            "levels": [
+                { "id": 36, "title": "Запуск скриптов", "path": "src/levels/level36" },
+                { "id": 37, "title": "Работа с файлами в Node.js", "path": "src/levels/level37" },
+                { "id": 38, "title": "Парсинг сайтов с `axios`", "path": "src/levels/level38" },
+                { "id": 39, "title": "Обработка HTML с `cheerio`", "path": "src/levels/level39" },
+                { "id": 40, "title": "Создание Telegram-бота", "path": "src/levels/level40" },
+                { "id": 41, "title": "Продвинутые CLI: process.argv", "path": "src/levels/level41" },
+                { "id": 42, "title": "Автоматизация браузера: Puppeteer", "path": "src/levels/level42" },
+                { "id": 43, "title": "Puppeteer: Скриншот", "path": "src/levels/level43" },
+                { "id": 44, "title": "Свой веб-сервер: Express", "path": "src/levels/level44" }
+            ]
+        },
+        {
+            "title": "Основы взлома",
+            "levels": [
+                { "id": 45, "title": "Угон сессии: Куки", "path": "src/levels/level45" },
+                { "id": 46, "title": "Взлом баз: SQL-инъекции", "path": "src/levels/level46" },
+                { "id": 47, "title": "Атака на юзеров: XSS", "path": "src/levels/level47" },
+                { "id": 48, "title": "Подбор паролей: Брутфорс", "path": "src/levels/level48" },
+                { "id": 49, "title": "Взлом людей: Социальная инженерия", "path": "src/levels/level49" },
+                { "id": 50, "title": "Финальное слово Деда", "path": "src/levels/level50" }
+            ]
+        },
+        {
+            "title": "Тёмная Сторона Силы",
+            "secret": true,
+            "levels": [
+                { "id": 51, "title": "Побег из песочницы", "path": "src/levels/level51" },
+                { "id": 52, "title": "Охота на приватные ключи", "path": "src/levels/level52" },
+                { "id": 53, "title": "Сетевой перехват для самых маленьких", "path": "src/levels/level53" }
+            ]
+        }
+    ]
 }

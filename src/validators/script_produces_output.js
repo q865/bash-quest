@@ -18,7 +18,10 @@ async function scriptProducesOutput(args, M_PATH, state, actionHandlers) {
     const scriptPath = path.resolve(process.cwd(), args.script_path);
 
     if (!fs.existsSync(scriptPath)) {
-        return { success: false, message: `Скрипт ${args.script_path} не найден, боец.` };
+        return {
+            success: false,
+            message: `Скрипт ${args.script_path} не найден, боец.`,
+        };
     }
 
     // Make sure script is executable
@@ -30,14 +33,20 @@ async function scriptProducesOutput(args, M_PATH, state, actionHandlers) {
     const promise = new Promise((resolve) => {
         exec(scriptPath, (error, stdout, stderr) => {
             if (error) {
-                resolve({ success: false, message: `Скрипт упал с ошибкой: ${error.message}` });
+                resolve({
+                    success: false,
+                    message: `Скрипт упал с ошибкой: ${error.message}`,
+                });
                 return;
             }
             const output = stdout.trim();
             if (output === args.expected_output) {
                 resolve({ success: true });
             } else {
-                resolve({ success: false, message: `Скрипт выдал "${output}", а Дед ожидал "${args.expected_output}".` });
+                resolve({
+                    success: false,
+                    message: `Скрипт выдал "${output}", а Дед ожидал "${args.expected_output}".`,
+                });
             }
         });
     });

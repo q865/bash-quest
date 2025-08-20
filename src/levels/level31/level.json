@@ -1,33 +1,47 @@
 {
-    "title": "Node.js: Модуль `fs`",
-    "task": "### Дедовский Ликбез\n\nРаботать с файлами в Node.js пиздец как просто. Для этого есть встроенный модуль `fs` (File System).\n\nЧтобы его использовать, его нужно сначала подключить:\n`const fs = require('fs');`\n\nТеперь у тебя есть доступ к куче полезных функций:\n*   `fs.readFileSync('file.txt', 'utf8')` — прочитать файл **синхронно** (программа будет ждать, пока файл не прочитается).\n*   `fs.writeFileSync('file.txt', 'Hello, Ded!')` — записать в файл. Если файла нет — создаст. Если есть — перезапишет.\n*   `fs.appendFileSync('file.txt', 'Another line.')` — дописать в конец файла.\n\n`Sync` в конце значит, что операция блокирующая. Для простых скриптов это нормально. Для серверов — смерть.\n\n### Твоя Задача\n\n**Напиши Node.js-скрипт `writer.js`, который создаёт файл `node_was_here.txt` и записывает в него строку \"I am the file creator!\".**.",
-    "hint": "Подключи `fs`, потом используй `fs.writeFileSync('имя_файла', 'текст');`.",
+    "title": "Замена текста: sed",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "config.ini",
+                "content": "HOST=127.0.0.1\nPORT=8080\nDEBUG=false"
+            }
+        }
+    ],
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "writer.js"
+                "path": "config.ini"
             }
         },
         {
             "action": "delete_file",
             "args": {
-                "path": "node_was_here.txt"
+                "path": "new_config.ini"
             }
         }
     ],
     "validation": [
         {
-            "validator": "command_succeeds",
+            "validator": "file_system_entry_exists",
             "args": {
-                "command": "node writer.js"
+                "path": "new_config.ini"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "node_was_here.txt",
-                "content": "I am the file creator!"
+                "path": "new_config.ini",
+                "content": "DEBUG=true"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "new_config.ini",
+                "content": "HOST=127.0.0.1"
             }
         }
     ]

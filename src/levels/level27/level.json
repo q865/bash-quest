@@ -1,22 +1,31 @@
 {
-    "title": "Аргументы командной строки",
-    "task": "### Дедовский Ликбез\n\nСкрипты станут в сто раз полезнее, если научить их принимать входные данные. Для этого есть аргументы командной строки. Это, блядь, как передать записку программе.\n\nВнутри скрипта к ним можно обращаться через специальные переменные:\n*   `$1` — первый аргумент\n*   `$2` — второй аргумент\n*   ...и так далее.\n*   `$0` — имя самого скрипта.\n*   `$#` — количество переданных аргументов.\n*   `$@` — все аргументы как список.\n\n**Пример:**\n`./my_script.sh hello world`\n\nВнутри `my_script.sh`:\n*   `$1` будет `hello`\n*   `$2` будет `world`\n*   `$#` будет `2`\n\n### Твоя Задача\n\n**Напиши скрипт `greeter.sh`, который принимает один аргумент (имя) и выводит на экран \"Hello, [имя]!\".**\n\nНапример, при запуске `./greeter.sh Ded` он должен вывести `Hello, Ded!`.",
-    "hint": "Скрипт будет содержать одну строку: `echo \"Hello, $1!\"`.",
+    "title": "Переменные и аргументы",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
                 "path": "greeter.sh"
             }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "output.txt"
+            }
         }
     ],
     "validation": [
         {
-            "validator": "script_produces_output",
+            "validator": "command_succeeds",
             "args": {
-                "path": "greeter.sh",
-                "output": "Hello, Comrade!",
-                "command": "./greeter.sh Comrade"
+                "command": "bash greeter.sh Ded > output.txt"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "output.txt",
+                "content": "Zdarova, Ded"
             }
         }
     ]

@@ -1,14 +1,58 @@
 {
-    "title": "Команда `cd`",
-    "task": "### Дедовский Ликбез\n\nХватит топтаться на месте. Команда `cd` (change directory) — это твои ноги. С её помощью ты перемещаешься по файловой системе.\n\n*   `cd trainee_stuff` — войти в папку `trainee_stuff`.\n*   `cd ..` — выйти на один уровень вверх.\n*   `cd` (без всего) — вернуться в свою домашнюю директорию из любого говна, где бы ты ни был.\n*   `cd -` — вернуться в предыдущую директорию, где ты был до этого. Пиздец как удобно, когда скачешь туда-сюда.\n\n### Твоя Задача\n\nТы создал папку `trainee_stuff` на прошлом задании. Самое время в неё зайти.\n\n**Перейди в директорию `trainee_stuff`**. Я проверю, что ты находишься именно там.",
-    "hint": "Просто напиши `cd trainee_stuff`.",
+    "title": "Перемещение и переименование",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "old_name.txt"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "move_me.txt"
+            }
+        },
+        {
+            "action": "create_directory",
+            "args": {
+                "path": "target_dir"
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "new_name.txt"
+            }
+        },
+        {
+            "action": "delete_directory",
+            "args": {
+                "path": "target_dir"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "command_succeeds",
+            "validator": "file_system_entry_exists",
             "args": {
-                "command": "pwd | grep 'trainee_stuff$'"
-            },
-            "message": "Ты не в той директории, боец. Я же сказал, зайди в `trainee_stuff`."
+                "shouldExist": false,
+                "path": "old_name.txt"
+            }
+        },
+        {
+            "validator": "file_system_entry_exists",
+            "args": {
+                "path": "new_name.txt"
+            }
+        },
+        {
+            "validator": "file_system_entry_exists",
+            "args": {
+                "path": "target_dir/move_me.txt"
+            }
         }
     ]
 }

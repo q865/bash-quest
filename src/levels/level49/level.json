@@ -1,27 +1,31 @@
 {
-    "title": "Команда `history`",
-    "task": "### Дедовский Ликбез\n\nЗабыл, какую охуенную команду ты вводил вчера? Не беда. Терминал, сука, всё помнит. Команда `history` показывает список последних команд, которые ты вводил.\n\nПросто `history` выведет весь список. Можно передать число, чтобы увидеть только последние N команд:\n\n`history 20`\n\nНо самая мякотка — это обратный поиск. Нажми `Ctrl+R` и начни печатать кусок команды. Терминал будет подсказывать тебе совпадения из истории. Нажимай `Ctrl+R` ещё раз, чтобы листать совпадения. Нашёл — жми `Enter`, чтобы выполнить, или стрелку, чтобы отредактировать.\n\n### Твоя Задача\n\n**Найди в своей истории команд последнюю команду `grep`, которую ты использовал, и сохрани её в файл `last_grep.txt`**.",
-    "hint": "`history | grep 'grep' | tail -n 1 > last_grep.txt`\n`tail -n 1` оставляет только последнюю строку.",
+    "title": "Взлом людей: Социальная инженерия",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "last_grep.txt"
+                "path": "philosophy.js"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "output.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "command_succeeds",
             "args": {
-                "path": "last_grep.txt"
+                "command": "node philosophy.js > output.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "last_grep.txt",
-                "content": "grep"
+                "path": "output.txt",
+                "content": "The human is the weakest link"
             }
         }
     ]

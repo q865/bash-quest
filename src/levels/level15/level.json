@@ -1,35 +1,25 @@
 {
-    "title": "Команда `mv`",
-    "task": "### Дедовский Ликбез\n\nКоманда `mv` (move) — это твой грузчик. Она делает две вещи:\n\n1.  **Перемещает** файлы и папки.\n2.  **Переименовывает** их.\n\nПо сути, переименование — это перемещение файла в ту же папку, но под другим именем.\n\n**Переименовать:**\n`mv old_name.txt new_name.txt`\n\n**Переместить:**\n`mv my_file.txt trainee_stuff/`\n(переместит `my_file.txt` внутрь папки `trainee_stuff`)\n\nЕсли в `trainee_stuff` уже есть файл с таким именем, `mv` его молча **перезапишет**. Опять же, будь осторожен.\n\n### Твоя Задача\n\nУ тебя есть файл `notes.txt`. Но мне не нравится это название. Оно слишком простое.\n\n**Переименуй файл `notes.txt` в `my_super_notes.txt`**.",
-    "hint": "`mv notes.txt my_super_notes.txt`",
-    "setup": [
-        {
-            "action": "create_file",
-            "args": {
-                "path": "notes.txt",
-                "content": "Заметки"
-            }
-        }
-    ],
+    "title": "Сетевая разведка с `dig`",
     "cleanup": [
         {
             "action": "delete_file",
             "args": {
-                "path": "my_super_notes.txt"
+                "path": "mail_servers.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "file_not_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "notes.txt"
+                "path": "mail_servers.txt"
             }
         },
         {
-            "validator": "file_exists",
+            "validator": "file_content_matches",
             "args": {
-                "path": "my_super_notes.txt"
+                "path": "mail_servers.txt",
+                "content": "mx.google.com"
             }
         }
     ]

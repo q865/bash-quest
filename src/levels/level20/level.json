@@ -1,19 +1,25 @@
 {
-    "title": "Команда `nmap`",
-    "task": "### Дедовский Ликбез\n\n`nmap` (Network Mapper) — это, блядь, твой сканер. Основной инструмент любого сетевого разведчика. Он сканирует хост (сайт, сервер, что угодно) и показывает, какие порты у него открыты.\n\nОткрытый порт — это как незапертая дверь. Через него можно зайти. Зная, какие порты открыты, ты можешь понять, какие сервисы крутятся на сервере (веб-сервер, почта, база данных) и где потенциально можно поискать уязвимости.\n\nПростейшее сканирование:\n`nmap example.com`\n\n`nmap` покажет список открытых портов и предположит, какой сервис за ним стоит. Например, порт 80 — это почти всегда HTTP (веб-сайт), 22 — SSH (удалённый доступ).\n\n### Твоя Задача\n\nПросканируй `scanme.nmap.org`. Это специальный сайт от создателей `nmap` для безопасных тренировок.\n\n**Сохрани результат сканирования в файл `scan_results.txt`**.",
-    "hint": "`nmap scanme.nmap.org > scan_results.txt`",
+    "title": "Трассировка маршрута",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "trace.txt"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "scan_results.txt"
+                "path": "trace.txt"
             }
         },
         {
-            "validator": "file_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "scan_results.txt",
-                "content": "Nmap scan report"
+                "path": "trace.txt",
+                "content": "google.com"
             }
         }
     ]

@@ -1,12 +1,64 @@
 {
-    "title": "Команда `touch`",
-    "task": "### Дедовский Ликбез\n\nЧтобы что-то написать, нужен, блядь, листок бумаги. В терминале эту роль выполняет команда `touch`. Она создаёт пустые файлы.\n\n`touch my_notes.txt`\n\nИ вот у тебя есть файл `my_notes.txt`. Пока что пустой, как твоя голова, но уже что-то.\n\nЕсли файл с таким именем уже существует, `touch` не сделает нихуя, кроме того, что обновит время его последнего изменения. Это тоже бывает полезно, но об этом позже.\n\n### Твоя Задача\n\nСейчас ты в папке `trainee_stuff`. Создай в ней файл для своих заметок.\n\n**Назови его `my_notes.txt`**.",
-    "hint": "Находясь в `trainee_stuff`, выполни `touch my_notes.txt`.",
+    "title": "Копирование файлов и директорий",
+    "setup": [
+        {
+            "action": "create_file",
+            "args": {
+                "path": "secret_recipe.txt",
+                "content": "Водка, огуречный рассол, и слеза врага."
+            }
+        },
+        {
+            "action": "create_directory",
+            "args": {
+                "path": "archive/old_photos"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "archive/old_photos/ded_on_tank.jpg",
+                "content": "binary_data"
+            }
+        },
+        {
+            "action": "create_directory",
+            "args": {
+                "path": "backup"
+            }
+        }
+    ],
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "secret_recipe.txt"
+            }
+        },
+        {
+            "action": "delete_directory",
+            "args": {
+                "path": "archive"
+            }
+        },
+        {
+            "action": "delete_directory",
+            "args": {
+                "path": "backup"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "trainee_stuff/my_notes.txt"
+                "path": "backup/secret_recipe.txt"
+            }
+        },
+        {
+            "validator": "file_system_entry_exists",
+            "args": {
+                "path": "backup/archive/old_photos/ded_on_tank.jpg"
             }
         }
     ]

@@ -1,50 +1,57 @@
 {
-  "name": "cyber-hardening",
-  "version": "1.0.0",
-  "description": "Интерактивный курс по Bash, Node.js и основам кибербезопасности.",
-  "bin": {
-    "cyber-hardening": "bin/bash-quest"
-  },
-  "scripts": {
-    "test": "jest",
-    "check:levels": "bin/check_levels.js"
-  },
-  "keywords": [
-    "bash",
-    "linux",
-    "cli",
-    "game",
-    "tutorial",
-    "learning",
-    "terminal",
-    "security",
-    "automation"
-  ],
-  "author": "Ded <ded@example.com>",
-  "license": "MIT",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/user/terminalny-tyagach.git"
-  },
-  "homepage": "https://github.com/user/terminalny-tyagach#readme",
-  "dependencies": {
-    "axios": "^1.7.2",
-    "boxen": "^8.0.1",
-    "chalk": "^5.4.1",
-    "cheerio": "^1.0.0-rc.12",
-    "express": "^4.19.2",
-    "figlet": "^1.8.2",
-    "gradient-string": "^3.0.0",
-    "inquirer": "^12.9.0",
-    "node-telegram-bot-api": "^0.66.0",
-    "ora": "^8.2.0",
-    "puppeteer": "^22.12.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "babel-jest": "^30.0.5",
-    "jest": "^30.0.5"
-  }
+    "name": "cyber-hardening",
+    "version": "1.0.0",
+    "description": "Интерактивный курс по Bash, Node.js и основам кибербезопасности.",
+    "bin": {
+        "cyber-hardening": "bin/bash-quest"
+    },
+    "scripts": {
+        "start": "bin/bash-quest",
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+        "check:levels": "bin/check_levels.js",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "keywords": [
+        "bash",
+        "linux",
+        "cli",
+        "game",
+        "tutorial",
+        "learning",
+        "terminal",
+        "security",
+        "automation"
+    ],
+    "author": "Ded <ded@example.com>",
+    "license": "MIT",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/user/terminalny-tyagach.git"
+    },
+    "homepage": "https://github.com/user/terminalny-tyagach#readme",
+    "dependencies": {
+        "axios": "^1.7.2",
+        "boxen": "^8.0.1",
+        "chalk": "^5.4.1",
+        "cheerio": "^1.0.0-rc.12",
+        "express": "^4.19.2",
+        "figlet": "^1.8.2",
+        "gradient-string": "^3.0.0",
+        "inquirer": "^12.9.0",
+        "node-telegram-bot-api": "^0.66.0",
+        "ora": "^8.2.0",
+        "puppeteer": "^22.12.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28.3",
+        "@babel/preset-env": "^7.28.3",
+        "babel-jest": "^29.7.0",
+        "jest": "^29.7.0",
+        "prettier": "^3.6.2"
+    },
+    "jest": {
+        "transform": {}
+    }
 }

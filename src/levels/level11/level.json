@@ -1,26 +1,25 @@
 {
-    "title": "Команда `grep`",
-    "task": "### Дедовский Ликбез\n\nФайлы бывают, сука, огромные. Искать в них что-то глазами — ебануться можно. Для этого умные люди придумали `grep` — глобальный поисковик по регулярным выражениям. Проще говоря, это твой личный ищейка.\n\n`grep 'что_искать' где_искать.txt`\n\n`grep` пройдётся по файлу и выведет только те строки, где нашел то, что ты ему сказал. Это, блядь, одна из самых мощных и полезных команд. Ты будешь пользоваться ей каждый день, если не долбоёб.\n\nНапример, `grep 'error' logs.txt` покажет все строки со словом 'error' в файле логов. Сразу видишь, где всё пошло по пизде.\n\n### Твоя Задача\n\nВ директории лежит файл `long_text.txt`. Там много всякой хуйни. Мне нужно, чтобы ты нашёл в нём все строки, где упоминается слово \"Linux\".\n\n**Сохрани результат поиска в файл `linux_mentions.txt`**.",
-    "hint": "`grep 'Linux' long_text.txt > linux_mentions.txt`",
+    "title": "Знакомство с `curl`",
+    "cleanup": [
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "evidence.html"
+            }
+        }
+    ],
     "validation": [
         {
-            "validator": "file_exists",
+            "validator": "file_system_entry_exists",
             "args": {
-                "path": "linux_mentions.txt"
+                "path": "evidence.html"
             }
         },
         {
-            "validator": "file_not_contains",
+            "validator": "file_content_matches",
             "args": {
-                "path": "linux_mentions.txt",
-                "content": "Windows"
-            }
-        },
-        {
-            "validator": "file_contains",
-            "args": {
-                "path": "linux_mentions.txt",
-                "content": "Linux"
+                "path": "evidence.html",
+                "content": "Example Domain"
             }
         }
     ]

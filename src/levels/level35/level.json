@@ -1,22 +1,66 @@
 {
-    "title": "Создание CLI-утилиты",
-    "task": "### Дедовский Ликбез\n\nХватит писать одноразовые скрипты. Пора создать свою собственную, блядь, CLI-утилиту (Command-Line Interface). Это программа, которую можно вызывать по имени из любой папки в системе.\n\n**Как сделать:**\n1.  В `package.json` добавь секцию `bin`:\n    ```json\n    \"bin\": {\n      \"my-cli-tool\": \"./path/to/your/script.js\"\n    }\n    ```\n2.  В начало `script.js` добавь уже знакомый shebang, но для Node:\n    `#!/usr/bin/env node`\n3.  Сделай скрипт исполняемым: `chmod +x script.js`\n4.  Выполни `npm link`. Эта команда создаст символическую ссылку на твой скрипт в глобальной директории, и ты сможешь вызывать `my-cli-tool` откуда угодно.\n\n### Твоя Задача\n\n**Сделай CLI-утилиту `show-weather`**.\n1.  Создай скрипт `weather-cli.js`, который принимает один аргумент (город) и с помощью `axios` и `wttr.in` показывает для него погоду.\n2.  Правильно настрой `package.json` и `weather-cli.js`.\n3.  **Не выполняй `npm link`**. Я проверю скрипт напрямую.",
-    "hint": "В `weather-cli.js` возьми город из `process.argv[2]` и подставь в URL для `axios.get('http://wttr.in/' + city + '?format=%C+%t')`.",
+    "title": "Диплом: Анализатор логов",
+    "setup": [
+        {
+            "action": "create_directory",
+            "args": {
+                "path": "logs"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "logs/app1.log",
+                "content": "INFO\nERROR: Null pointer\nWARN\nERROR: Connection refused"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "logs/app2.log",
+                "content": "INFO\nINFO\nWARN"
+            }
+        },
+        {
+            "action": "create_file",
+            "args": {
+                "path": "logs/app3.log",
+                "content": "ERROR: Disk full"
+            }
+        }
+    ],
     "cleanup": [
+        {
+            "action": "delete_directory",
+            "args": {
+                "path": "logs"
+            }
+        },
         {
             "action": "delete_file",
             "args": {
-                "path": "weather-cli.js"
+                "path": "report.sh"
+            }
+        },
+        {
+            "action": "delete_file",
+            "args": {
+                "path": "error_summary.txt"
             }
         }
     ],
     "validation": [
         {
-            "validator": "script_produces_output",
+            "validator": "command_succeeds",
             "args": {
-                "path": "weather-cli.js",
-                "output": "Clear",
-                "command": "node weather-cli.js London"
+                "command": "bash report.sh logs"
+            }
+        },
+        {
+            "validator": "file_content_matches",
+            "args": {
+                "path": "error_summary.txt",
+                "content": "TOTAL ERRORS: 3"
             }
         }
     ]
